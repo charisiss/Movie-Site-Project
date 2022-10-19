@@ -1,0 +1,14 @@
+.infoCard {
+  background-color: white;
+  width: 10vw;
+  position: absolute;
+  margin: 150px;
+  z-index: 5;
+  border-radius: 10px;
+  padding: 10px;
+  display: none;
+}
+
+.infoTitle {
+  font-size: 12px;
+}

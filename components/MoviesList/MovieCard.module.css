@@ -1,0 +1,84 @@
+.card {
+  position: relative;
+  margin: 10px;
+  height: 350px;
+  width: 200px;
+}
+
+.cardImage {
+  display: flex;
+  justify-content: center;
+}
+
+.cardImage img {
+  border-radius: 5px;
+  height: 290px;
+  width: 200px;
+  box-shadow: 1px 3px 10px #888888;
+}
+
+.cardImage .ImageBackdrop {
+  position: absolute;
+  height: 290px;
+  width: 200px;
+  z-index: 3;
+}
+
+.cardImage .ImageBackdrop:hover {
+  border-radius: 4px;
+  background-color: rgba(0, 0, 0, 0.649);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: fadeIn 0.5s;
+  box-shadow: 0px 0px 25px 10px #00000078;
+}
+
+.cardImage .ImageBackdrop .IconButton {
+  color: white;
+  display: none;
+}
+
+.cardImage .ImageBackdrop:hover .IconButton {
+  display: flex;
+  background-color: #00b3ffd8;
+  animation: fadeIn 0.5s, zoomIn 0.5s;
+}
+
+.cardTitle {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.cardDescription {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  font-size: 10px;
+}
+
+.popper {
+  background-color: white;
+  padding: 10px;
+  color: black;
+  z-index: 5;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes zoomIn {
+  0% {
+    scale: 0.5;
+  }
+  100% {
+    scale: 1;
+  }
+}

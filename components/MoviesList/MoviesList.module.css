@@ -1,0 +1,8 @@
+.row {
+  margin-top: 1em;
+  height: 400px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  overflow: hidden;
+}
