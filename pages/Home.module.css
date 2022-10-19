@@ -1,0 +1,21 @@
+.pageTitleContainer {
+  background-color: #00b3ff;
+  height: 20vh;
+  width: 100;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.pageTitleContainer h1 {
+  margin: 0;
+  text-align: center;
+  font-family: "Courier New", Courier, monospace;
+}
+
+.loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

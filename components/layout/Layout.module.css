@@ -1,0 +1,21 @@
+.navbar {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-color: #00b3ff;
+  height: 10vh;
+}
+
+.navbar ul {
+  text-align: center;
+  list-style-type: none;
+}
+
+.navbar img {
+  cursor: pointer;
+}
+
+.navbar a {
+  display: inline;
+  padding: 0px 10px 0px 10px;
+}

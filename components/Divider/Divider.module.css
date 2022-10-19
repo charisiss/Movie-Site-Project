@@ -1,0 +1,11 @@
+.title {
+  font-weight: 300;
+  margin-top: -1em;
+  text-align: left;
+}
+
+.divider {
+  background-color: black;
+  height: 1px;
+  margin-top: -1em;
+}
