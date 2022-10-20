@@ -3,7 +3,7 @@ import IconButton from "@mui/material/IconButton";
 import PlayArrow from "@mui/icons-material/PlayArrow";
 
 import classes from "./MovieCard.module.css";
-import { Popover, Popper } from "@mui/material";
+import { Button, Popper } from "@mui/material";
 
 type MovieType = {
   movie: {
@@ -19,13 +19,25 @@ type MovieType = {
 
 const MovieCard: React.FC<MovieType> = (props) => {
   const [anchor, setAnchor] = useState(null);
+  const [keepOpen, setKeepOpen] = useState(false);
+
   const openPopover = (event: any) => {
     setAnchor(event.currentTarget);
+  };
+  const closePopover = () => {
+    setTimeout(() => {
+      if (keepOpen) return;
+      setAnchor(null);
+    }, 2000);
   };
 
   return (
     <React.Fragment>
-      <div className={classes.card}>
+      <div
+        className={classes.card}
+        onMouseEnter={openPopover}
+        onMouseLeave={closePopover}
+      >
         <div className={classes.cardImage}>
           <img src={props.movie.poster}></img>
           <div className={classes.ImageBackdrop}>
@@ -33,7 +45,6 @@ const MovieCard: React.FC<MovieType> = (props) => {
               className={classes.IconButton}
               aria-label="play-arrow"
               size="large"
-              onClick={openPopover}
             >
               <PlayArrow fontSize="inherit" />
             </IconButton>
@@ -51,11 +62,28 @@ const MovieCard: React.FC<MovieType> = (props) => {
         anchorEl={anchor}
         disablePortal={false}
         className={classes.popper}
-        onMouseLeave={() => {
-          setAnchor(null);
+        onMouseEnter={() => {
+          setKeepOpen(true);
+          console.log(keepOpen);
+        }}
+        onMouseOut={() => {
+          setKeepOpen(false);
         }}
       >
-        <h5>{props.movie.movie}</h5>
+        <h4>{props.movie.movie}</h4>
+        <p>
+          Lorem Ipsum is simply dummy text of the printing and typesetting
+          industry.
+        </p>
+        <p>{props.movie.actors}</p>
+        <p>{props.movie.year}</p>
+        <Button
+          variant="contained"
+          startIcon={<PlayArrow />}
+          className={classes.popperButton}
+        >
+          Watch Now
+        </Button>
       </Popper>
     </React.Fragment>
   );

@@ -1,16 +1,43 @@
-import React, { ReactNode } from "react";
+import React from "react";
+import Transition from "react-transition-group/Transition";
+
 import classes from "./MovieInfo.module.css";
 
-type MovieInfoType = {
-  title: string;
-  text: string;
+const animationTiming = {
+  enter: 400,
+  exit: 1000,
 };
 
-const MovieInfo: React.FC<MovieInfoType> = (props) => {
+const MovieInfo = (props: { show: boolean; closed: any }) => {
   return (
-    <div className={classes.infoCard} style={{ left: 100 }}>
-      <h4 className={classes.infoTitle}>{props.title}</h4> {props.text}
-    </div>
+    <Transition
+      mountOnEnter
+      unmountOnExit
+      onEnter={() => {
+        console.log("enter");
+      }}
+      in={props.show}
+      timeout={animationTiming}
+    >
+      {(state) => {
+        const cssClasses = [
+          "Modal",
+          state === "entering"
+            ? "ModalOpen"
+            : state === "exiting"
+            ? "ModalClosed"
+            : null,
+        ];
+        return (
+          <div className={classes.Modal}>
+            <h1>A Modal</h1>
+            <button className="Button" onClick={props.closed}>
+              Dismiss
+            </button>
+          </div>
+        );
+      }}
+    </Transition>
   );
 };
 

@@ -9,7 +9,7 @@ type DividerType = {
 const Divider: React.FC<DividerType> = (props) => {
   return (
     <React.Fragment>
-      {props.title && <h3 className={classes.title}>{props.title}</h3>}
+      {props.title && <h2 className={classes.title}>{props.title}</h2>}
       <div
         className={classes.divider}
         style={{ width: `${props.size}vw` }}
