@@ -1,43 +1,39 @@
-import React from "react";
-import Transition from "react-transition-group/Transition";
+import React, { useState } from "react";
+import { Button, Popper } from "@mui/material";
+import PlayArrow from "@mui/icons-material/PlayArrow";
 
 import classes from "./MovieInfo.module.css";
 
-const animationTiming = {
-  enter: 400,
-  exit: 1000,
-};
-
-const MovieInfo = (props: { show: boolean; closed: any }) => {
+const MovieInfo = (props: any) => {
   return (
-    <Transition
-      mountOnEnter
-      unmountOnExit
-      onEnter={() => {
-        console.log("enter");
+    <Popper
+      placement="right"
+      open={Boolean(props.anchor)}
+      anchorEl={props.anchor}
+      disablePortal={false}
+      className={classes.popper}
+      onMouseEnter={() => {
+        props.setKeepOpen(true);
       }}
-      in={props.show}
-      timeout={animationTiming}
+      onMouseOut={() => {
+        props.setKeepOpen(false);
+      }}
     >
-      {(state) => {
-        const cssClasses = [
-          "Modal",
-          state === "entering"
-            ? "ModalOpen"
-            : state === "exiting"
-            ? "ModalClosed"
-            : null,
-        ];
-        return (
-          <div className={classes.Modal}>
-            <h1>A Modal</h1>
-            <button className="Button" onClick={props.closed}>
-              Dismiss
-            </button>
-          </div>
-        );
-      }}
-    </Transition>
+      <h4>{props.movie.movie}</h4>
+      <p>
+        Lorem Ipsum is simply dummy text of the printing and typesetting
+        industry.
+      </p>
+      <p>{props.movie.actors}</p>
+      <p>{props.movie.year}</p>
+      <Button
+        variant="contained"
+        startIcon={<PlayArrow />}
+        className={classes.popperButton}
+      >
+        Watch Now
+      </Button>
+    </Popper>
   );
 };
 

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import type { NextPage } from "next";
 import Layout from "../components/layout/Layout";
 import classes from "./Home.module.css";
@@ -10,8 +10,9 @@ import SearchForm from "../components/SearchForm/SearchForm";
 import MoviesList from "../components/MoviesList/MoviesList";
 import Divider from "../components/Divider/Divider";
 import { CircularProgress } from "@mui/material";
+import MovieContext, { MovieContextProvider } from "../store/Movies";
 
-type moviesType = {
+type movieType = {
   key: string;
   movie: string;
   actors: string;
@@ -21,52 +22,16 @@ type moviesType = {
 };
 
 const Home: NextPage = () => {
-  const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [width, setWidth] = useState<number>(1080);
-
-  if (typeof window !== "undefined") {
-    const handleResize = () => {
-      if (width != window.innerWidth) return setWidth(window.innerWidth);
-    };
-    window.addEventListener("resize", handleResize);
-  }
-
-  const [moviesList, setMoviesList] = useState<moviesType[]>([]);
-  useEffect(() => {
-    const loadedMovies: moviesType[] = [];
-    const fetchMovies = async () => {
-      const response = await fetch(
-        `https://owen-wilson-wow-api.herokuapp.com/wows/random?results=${
-          Math.floor((width - 100) / 150) * 2
-        }`
-      )
-        .then((res) => res.json())
-        .then((responseData) => {
-          for (const key in responseData) {
-            loadedMovies.push({
-              key: responseData[key].movie.split(" ").join("") + Math.random(),
-              movie: responseData[key].movie,
-              actors: responseData[key].actors,
-              poster: responseData[key].poster,
-              movie_duration: responseData[key].movie_duration,
-              year: responseData[key].year,
-            });
-          }
-        });
-      setMoviesList(loadedMovies);
-      setIsLoading(false);
-    };
-    fetchMovies();
-  }, []);
+  var ctx = useContext(MovieContext);
 
   return (
     <Layout>
       <div className={classes.pageTitleContainer}>
         <h1>Find Movies, TV shows and more</h1>
-        <SearchForm movies={moviesList} />
+        <SearchForm movies={ctx.Movies} />
       </div>
 
-      <main
+      <div
         style={{
           margin: "2em 5vw 0px 5vw",
           color: "black",
@@ -94,20 +59,20 @@ const Home: NextPage = () => {
           </div>
         </div>
         <Divider size="15" title="Recomended" />
-        {isLoading && (
+        {ctx.isLoading && (
           <div className={classes.loading}>
             <CircularProgress color="inherit" />
           </div>
         )}
-        {<MoviesList movies={moviesList} width={width} />}
+        {<MoviesList movies={ctx.Movies} width={ctx.width} />}
         <Divider size="15" title="Latest MoviesView" />
-        {isLoading && (
+        {ctx.isLoading && (
           <div className={classes.loading}>
             <CircularProgress color="inherit" />
           </div>
         )}
-        {<MoviesList movies={moviesList} width={width} />}
-      </main>
+        {<MoviesList movies={ctx.Movies} width={ctx.width} />}
+      </div>
     </Layout>
   );
 };
