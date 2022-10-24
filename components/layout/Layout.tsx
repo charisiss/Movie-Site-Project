@@ -19,7 +19,7 @@ const Layout: React.FC<Props> = (props) => {
       <div className={classes.main}>
         <div className={classes.navbar}>
           <Link href="/">
-            <img src="/logo.png" width="150px" />
+            <img src="/logo.png" width="200px" />
           </Link>
           <ul>
             <Link href="/">Home</Link>

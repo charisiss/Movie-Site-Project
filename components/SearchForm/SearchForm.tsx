@@ -10,10 +10,13 @@ import Link from "next/link";
 type movieType = {
   key: string;
   movie: string;
-  actors: string;
   poster: string;
   movie_duration: string;
   year: number;
+  cast: string;
+  director: string;
+  releaseDate: string;
+  video: {};
 };
 
 type moviesType = {
@@ -43,7 +46,9 @@ const SearchForm: React.FC<moviesType> = (props) => {
     setsearchResults([]);
     if (inputText && inputText.length > 0) {
       props.movies.filter((movie) => {
-        const testMovie = movie.movie.match(inputText);
+        const testMovie = movie.movie
+          .toLowerCase()
+          .match(inputText.toLowerCase());
         if (!testMovie) return;
         setsearchResults((oldArray: movieType[]) => [...oldArray, movie]);
       });

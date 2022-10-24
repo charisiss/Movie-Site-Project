@@ -3,8 +3,11 @@ import { Button, Popper } from "@mui/material";
 import PlayArrow from "@mui/icons-material/PlayArrow";
 
 import classes from "./MovieInfo.module.css";
+import { useRouter } from "next/router";
 
 const MovieInfo = (props: any) => {
+  const router = useRouter();
+
   return (
     <Popper
       placement="right"
@@ -30,6 +33,9 @@ const MovieInfo = (props: any) => {
         variant="contained"
         startIcon={<PlayArrow />}
         className={classes.popperButton}
+        onClick={() => {
+          router.push(`/movies/${props.movie.movie}`);
+        }}
       >
         Watch Now
       </Button>

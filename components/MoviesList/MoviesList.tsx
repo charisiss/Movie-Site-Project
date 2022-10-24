@@ -6,12 +6,16 @@ type moviesType = {
   movies: {
     key: string;
     movie: string;
-    actors: string;
     poster: string;
     movie_duration: string;
     year: number;
+    cast: string;
+    director: string;
+    releaseDate: string;
+    video: {};
   }[];
-  width: number;
+  width: number; // Width of the screen to calculate the movies per row
+  size: number; // Declare rows size
 };
 
 const MovieList: React.FC<moviesType> = (props) => {
@@ -37,13 +41,14 @@ const MovieList: React.FC<moviesType> = (props) => {
         justifyContent: "center",
       }}
     >
-      {movieSeparatedLists.map((list) => {
+      {movieSeparatedLists.map((list, index) => {
+        if (props.size !== -1 && props.size <= index) return;
         return (
           <div className={classes.row} key={Math.random()}>
             {list.map((movie, index) => {
               return (
                 <React.Fragment key={movie.key}>
-                  <MovieCard movie={movie} position={index} />
+                  <MovieCard movie={movie} />
                 </React.Fragment>
               );
             })}

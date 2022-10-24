@@ -10,19 +10,10 @@ import SearchForm from "../components/SearchForm/SearchForm";
 import MoviesList from "../components/MoviesList/MoviesList";
 import Divider from "../components/Divider/Divider";
 import { CircularProgress } from "@mui/material";
-import MovieContext, { MovieContextProvider } from "../store/Movies";
-
-type movieType = {
-  key: string;
-  movie: string;
-  actors: string;
-  poster: string;
-  movie_duration: string;
-  year: number;
-};
+import MovieContext from "../store/Movies-Context";
 
 const Home: NextPage = () => {
-  var ctx = useContext(MovieContext);
+  const ctx = useContext(MovieContext);
 
   return (
     <Layout>
@@ -64,14 +55,14 @@ const Home: NextPage = () => {
             <CircularProgress color="inherit" />
           </div>
         )}
-        {<MoviesList movies={ctx.Movies} width={ctx.width} />}
+        {<MoviesList movies={ctx.Movies} width={ctx.width} size={-1} />}
         <Divider size="15" title="Latest MoviesView" />
         {ctx.isLoading && (
           <div className={classes.loading}>
             <CircularProgress color="inherit" />
           </div>
         )}
-        {<MoviesList movies={ctx.Movies} width={ctx.width} />}
+        {<MoviesList movies={ctx.Movies} width={ctx.width} size={-1} />}
       </div>
     </Layout>
   );

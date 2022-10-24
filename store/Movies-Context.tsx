@@ -3,10 +3,13 @@ import React, { ReactNode, useState, useEffect } from "react";
 type movieType = {
   key: string;
   movie: string;
-  actors: string;
   poster: string;
   movie_duration: string;
   year: number;
+  cast: string;
+  director: string;
+  releaseDate: string;
+  video: {};
 };
 
 type contextMovieType = {
@@ -51,10 +54,13 @@ export const MovieContextProvider: React.FC<propsType> = (props) => {
             loadedMovies.push({
               key: responseData[key].movie.split(" ").join("") + Math.random(),
               movie: responseData[key].movie,
-              actors: responseData[key].actors,
               poster: responseData[key].poster,
               movie_duration: responseData[key].movie_duration,
               year: responseData[key].year,
+              cast: responseData[key].character,
+              director: responseData[key].director,
+              releaseDate: responseData[key].release_date,
+              video: responseData[key].video,
             });
           }
         });

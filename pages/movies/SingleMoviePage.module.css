@@ -1,0 +1,38 @@
+.main {
+  margin: 2em 5vw 0px 5vw;
+  color: black;
+  padding-left: -50vh;
+  justify-content: center;
+}
+
+.row {
+  display: flex;
+  align-items: flex-start;
+}
+
+.descCol {
+  margin-top: 8vh;
+}
+
+.descCol > p {
+  line-break: anywhere;
+}
+
+.colPad {
+  padding-left: 80px;
+}
+
+.textBold {
+  font-weight: 600;
+}
+
+.card {
+  box-shadow: 2px 5px 5px 3px #00000078;
+  padding: 30px;
+  border-radius: 15px;
+}
+
+.comRow {
+  margin-top: 1em;
+  padding: 5vh;
+}

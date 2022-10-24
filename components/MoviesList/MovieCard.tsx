@@ -4,22 +4,27 @@ import PlayArrow from "@mui/icons-material/PlayArrow";
 
 import classes from "./MovieCard.module.css";
 import MovieInfo from "./MovieInfo";
+import { useRouter } from "next/router";
 
 type MovieType = {
   movie: {
     key: string;
     movie: string;
-    actors: string;
     poster: string;
     movie_duration: string;
     year: number;
+    cast: string;
+    director: string;
+    releaseDate: string;
+    video: {};
   };
-  position: number;
 };
 
 const MovieCard: React.FC<MovieType> = (props) => {
   const [anchor, setAnchor] = useState(null);
   const [keepOpen, setKeepOpen] = useState(false);
+
+  const router = useRouter();
 
   const openPopover = (event: any) => {
     setAnchor(event.currentTarget);
@@ -45,6 +50,9 @@ const MovieCard: React.FC<MovieType> = (props) => {
               className={classes.IconButton}
               aria-label="play-arrow"
               size="large"
+              onClick={() => {
+                router.push(`/movies/${props.movie.movie}`);
+              }}
             >
               <PlayArrow fontSize="inherit" />
             </IconButton>
