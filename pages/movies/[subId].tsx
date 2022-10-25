@@ -61,6 +61,19 @@ const HelloPage = () => {
           </div>
         </div>
         <br />
+        {item?.video != undefined && (
+          <div
+            className={`${classes.row} ${classes.card} ${classes.videoCard}`}
+          >
+            <iframe
+              width="1250px"
+              height="720px"
+              src={`${item.video["720p"]}`}
+            ></iframe>
+          </div>
+        )}
+
+        <br />
         <div className={`${classes.row} ${classes.comRow}`}>
           <div className={`${classes.col}`}>
             <Divider size="10" title="Comments"></Divider>
