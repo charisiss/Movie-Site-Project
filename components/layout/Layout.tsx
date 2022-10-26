@@ -18,8 +18,8 @@ const Layout: React.FC<Props> = (props) => {
         sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
         open={openBackdrop}
       >
-        <div className={classes.backdrop}>
-          <div className={classes.backdropTitle}>
+        <div className={classes.modal}>
+          <div className={classes.modalTitle}>
             <h2>LOGIN</h2>
           </div>
           <br />
@@ -27,16 +27,16 @@ const Layout: React.FC<Props> = (props) => {
             id="outlined-basic"
             label="Username"
             variant="outlined"
-            className={classes.backdropField}
+            className={classes.modalField}
           />
 
           <TextField
             id="outlined-basic"
             label="Password"
             variant="outlined"
-            className={classes.backdropField}
+            className={classes.modalField}
           />
-          <Link href="/" className={classes.backdropLink}>
+          <Link href="/" className={classes.modalLink}>
             Forgot Password?
           </Link>
           <br />
