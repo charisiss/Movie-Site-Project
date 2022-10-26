@@ -1,22 +1,23 @@
-.navbar {
+.backdrop {
+  height: 40vh;
+  padding: 30px 60px 30px 60px;
+  border-radius: 40px;
+  background-color: white;
   display: flex;
-  justify-content: space-around;
+  flex-direction: column;
   align-items: center;
-  background-color: #00b3ff;
-  height: 10vh;
+  justify-content: space-between;
 }
 
-.navbar ul {
-  text-align: center;
-  list-style-type: none;
+.backdropTitle h2 {
+  color: black;
 }
 
-.navbar img {
-  cursor: pointer;
+.backdropField {
+  width: 40vh;
 }
 
-.navbar a {
-  font-size: 20px;
-  display: inline;
-  padding: 0px 10px 0px 10px;
+.backdropLink a {
+  color: #00b3ff !important;
+  background-color: black !important;
 }

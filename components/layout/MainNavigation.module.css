@@ -1,0 +1,44 @@
+.navbar {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-color: #00b3ff;
+  height: 10vh;
+}
+
+.navbar ul {
+  text-align: center;
+  list-style-type: none;
+}
+
+.navbar img {
+  cursor: pointer;
+}
+
+.navbar a {
+  font-size: 20px;
+  display: inline;
+  padding: 0px 10px 0px 10px;
+}
+
+.navigationLink a {
+  color: white !important;
+}
+
+.logButton {
+  color: white !important;
+  border-color: white;
+}
+
+.logButton:hover {
+  color: #00b3ff !important;
+  background-color: white;
+}
+
+.logButtonIcon {
+  color: white !important;
+}
+
+.logButton:hover .logButtonIcon {
+  color: #00b3ff !important;
+}

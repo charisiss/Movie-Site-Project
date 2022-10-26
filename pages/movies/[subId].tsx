@@ -4,14 +4,17 @@ import Layout from "../../components/layout/Layout";
 import MovieContext from "../../store/Movies-Context";
 import CommentsList from "../../components/Comments/CommentsList";
 import Divider from "../../components/Divider/Divider";
-import { CircularProgress } from "@mui/material";
+import { Button, CircularProgress, Rating } from "@mui/material";
 import MoviesList from "../../components/MoviesList/MoviesList";
 
 import classes from "./SingleMoviePage.module.css";
 import { CommentContextProvider } from "../../store/Comments-Context";
+import PlayArrow from "@mui/icons-material/PlayArrow";
 
 const HelloPage = () => {
   const router = useRouter();
+  const [displayVideo, setDisplayVideo] = useState("none");
+  const [value, setValue] = useState<number | null>(2);
   const recommendsRef = useRef<HTMLHeadingElement>(null);
   const [recommendsWidth, setRecommendsWidth] = useState<number>();
   const ctx = useContext(MovieContext);
@@ -46,6 +49,13 @@ const HelloPage = () => {
               publishing software like Aldus PageMaker including versions of
               Lorem Ipsum.
             </p>
+            <Rating
+              name="simple-controlled"
+              value={value}
+              onChange={(event, newValue) => {
+                setValue(newValue);
+              }}
+            />
             <div className={classes.row}>
               <div className={`${classes.col} ${classes.textBold}`}>
                 <p>Release:</p>
@@ -58,12 +68,23 @@ const HelloPage = () => {
                 <p>{item?.cast}</p>
               </div>
             </div>
+            <br />
+            <Button
+              variant="outlined"
+              startIcon={<PlayArrow />}
+              onClick={() => {
+                setDisplayVideo("");
+              }}
+            >
+              Watch Trailer
+            </Button>
           </div>
         </div>
         <br />
         {item?.video != undefined && (
           <div
             className={`${classes.row} ${classes.card} ${classes.videoCard}`}
+            style={{ display: displayVideo }}
           >
             <iframe
               width="1250px"
