@@ -1,19 +1,9 @@
 import React, { ReactNode, useState, useEffect } from "react";
 
-type movieType = {
-  key: string;
-  movie: string;
-  poster: string;
-  movie_duration: string;
-  year: number;
-  cast: string;
-  director: string;
-  releaseDate: string;
-  video: {};
-};
+import { MovieType } from "../types/MovieType";
 
 type contextMovieType = {
-  Movies: movieType[];
+  Movies: MovieType[];
   isLoading: boolean;
   width: number;
 };
@@ -31,7 +21,7 @@ const MovieContext = React.createContext<contextMovieType>({
 export const MovieContextProvider: React.FC<propsType> = (props) => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [windowWidth, setWidth] = useState<number>(1080);
-  const [moviesList, setMoviesList] = useState<movieType[]>([]);
+  const [moviesList, setMoviesList] = useState<MovieType[]>([]);
 
   if (typeof window !== "undefined") {
     const handleResize = () => {
@@ -41,7 +31,7 @@ export const MovieContextProvider: React.FC<propsType> = (props) => {
   }
 
   useEffect(() => {
-    const loadedMovies: movieType[] = [];
+    const loadedMovies: MovieType[] = [];
     const fetchMovies = async () => {
       const response = await fetch(
         `https://owen-wilson-wow-api.herokuapp.com/wows/random?results=${

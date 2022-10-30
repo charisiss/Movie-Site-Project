@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import { Button, Popper } from "@mui/material";
+import { Button, Rating } from "@mui/material";
 import PlayArrow from "@mui/icons-material/PlayArrow";
+import Tooltip from "@mui/material/Tooltip";
 
 import classes from "./MovieInfo.module.css";
 import { useRouter } from "next/router";
@@ -9,37 +10,47 @@ const MovieInfo = (props: any) => {
   const router = useRouter();
 
   return (
-    <Popper
+    <Tooltip
       placement="right"
-      open={Boolean(props.anchor)}
-      anchorEl={props.anchor}
-      disablePortal={false}
-      className={classes.popper}
-      onMouseEnter={() => {
-        props.setKeepOpen(true);
+      PopperProps={{
+        sx: {
+          "& .MuiTooltip-tooltip": {
+            backgroundColor: "white",
+            width: "200px",
+            padding: "0px 10px 0px 10px",
+            color: "black",
+            boxShadow: "0px 0px 25px 10px #00000078",
+            zIndex: "5",
+            borderRadius: "10px",
+          },
+        },
       }}
-      onMouseOut={() => {
-        props.setKeepOpen(false);
-      }}
+      title={
+        <div className={classes.popper}>
+          <h4>{props.movie.movie}</h4>
+          <p>
+            Lorem Ipsum is simply dummy text of the printing and typesetting
+            industry.
+          </p>
+          <Rating name="simple-controlled" value={4} readOnly />
+          <p>Actors: {props.movie.cast}</p>
+          <p>Year: {props.movie.year}</p>
+          <br />
+          <Button
+            variant="contained"
+            startIcon={<PlayArrow />}
+            className={classes.popperButton}
+            onClick={() => {
+              router.push(`/movies/${props.movie.movie}`);
+            }}
+          >
+            Watch Now
+          </Button>
+        </div>
+      }
     >
-      <h4>{props.movie.movie}</h4>
-      <p>
-        Lorem Ipsum is simply dummy text of the printing and typesetting
-        industry.
-      </p>
-      <p>{props.movie.actors}</p>
-      <p>{props.movie.year}</p>
-      <Button
-        variant="contained"
-        startIcon={<PlayArrow />}
-        className={classes.popperButton}
-        onClick={() => {
-          router.push(`/movies/${props.movie.movie}`);
-        }}
-      >
-        Watch Now
-      </Button>
-    </Popper>
+      {props.children}
+    </Tooltip>
   );
 };
 

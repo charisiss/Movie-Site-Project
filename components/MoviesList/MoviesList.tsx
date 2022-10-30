@@ -1,19 +1,10 @@
 import React from "react";
 import MovieCard from "./MovieCard";
 import classes from "./MoviesList.module.css";
+import { MovieType } from "../../types/MovieType";
 
 type moviesType = {
-  movies: {
-    key: string;
-    movie: string;
-    poster: string;
-    movie_duration: string;
-    year: number;
-    cast: string;
-    director: string;
-    releaseDate: string;
-    video: {};
-  }[];
+  movies: MovieType[];
   width: number; // Width of the screen to calculate the movies per row
   size: number; // Declare rows size
 };

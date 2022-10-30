@@ -55,6 +55,7 @@ const HelloPage = () => {
               onChange={(event, newValue) => {
                 setValue(newValue);
               }}
+              readOnly
             />
             <div className={classes.row}>
               <div className={`${classes.col} ${classes.textBold}`}>
@@ -89,7 +90,7 @@ const HelloPage = () => {
             <iframe
               width="1250px"
               height="720px"
-              src={`${item.video["720p"]}`}
+              src={`${item.video["1080p"]}`}
             ></iframe>
           </div>
         )}
