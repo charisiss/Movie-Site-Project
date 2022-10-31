@@ -3,6 +3,7 @@ import Link from "next/link";
 import PersonIcon from "@mui/icons-material/Person";
 
 import classes from "./MainNavigation.module.css";
+import Image from "next/image";
 
 type Props = {
   openBackdrop: () => void;
@@ -12,7 +13,12 @@ const MainNavigation = (props: Props) => {
   return (
     <div className={classes.navbar}>
       <Link href="/">
-        <img src="/logo.png" width="200px" />
+        <Image
+          src="/logo.png"
+          width={200}
+          height={40}
+          className={classes.img}
+        />
       </Link>
       <ul className={classes.navigationLink}>
         <Link href="/">Home</Link>

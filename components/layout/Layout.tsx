@@ -12,6 +12,8 @@ type Props = {
 
 const Layout: React.FC<Props> = (props) => {
   const [openBackdrop, setOpenBackdrop] = useState(false);
+  const pageTitle = props.pageId as string;
+
   return (
     <React.Fragment>
       <Backdrop
@@ -55,7 +57,7 @@ const Layout: React.FC<Props> = (props) => {
         </div>
       </Backdrop>
       <Head>
-        <title>CSMovies {props.pageId && `- ${props.pageId.toString()}`}</title>
+        <title>CSMovies {pageTitle && `- ${pageTitle}`}</title>
         <link rel="icon" href="/favicon.png" />
       </Head>
       <div className={classes.main}>

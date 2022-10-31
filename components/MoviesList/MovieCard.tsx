@@ -6,6 +6,7 @@ import classes from "./MovieCard.module.css";
 import MovieInfo from "./MovieInfo";
 import { useRouter } from "next/router";
 import { MovieType } from "../../types/MovieType";
+import Image from "next/image";
 
 type Props = {
   movie: MovieType;
@@ -27,7 +28,12 @@ const MovieCard: React.FC<Props> = (props) => {
           }}
         >
           <div className={classes.cardImage}>
-            <img src={props.movie.poster}></img>
+            <Image
+              src={props.movie.poster}
+              height="290"
+              width={200}
+              className={classes.img}
+            />
             <div className={classes.ImageBackdrop}>
               <IconButton
                 className={classes.IconButton}

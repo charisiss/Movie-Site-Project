@@ -6,6 +6,7 @@ import TextField from "@mui/material/TextField";
 
 import classes from "./SearchForm.module.css";
 import Link from "next/link";
+import Image from "next/image";
 
 type movieType = {
   key: string;
@@ -87,7 +88,12 @@ const SearchForm: React.FC<moviesType> = (props) => {
                 <li key={result.key}>
                   <Link href={"/movies/" + result.movie}>
                     <div className={classes.resultText}>
-                      <img src={`${result.poster}`} />
+                      <Image
+                        src={`${result.poster}`}
+                        height={100}
+                        width={60}
+                        style={{ marginRight: "20px" }}
+                      />
                       {result.movie}({result.year})
                     </div>
                   </Link>

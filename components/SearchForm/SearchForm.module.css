@@ -54,11 +54,6 @@
   align-items: center;
 }
 
-.resultText img {
-  padding-right: 20px;
-  height: 100px;
-}
-
 .searchResults:hover {
   display: block !important;
 }

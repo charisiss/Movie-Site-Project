@@ -5,7 +5,7 @@ import { MovieType } from "../types/MovieType";
 type contextMovieType = {
   Movies: MovieType[];
   isLoading: boolean;
-  width: number;
+  getMovie: (props: string) => {};
 };
 
 type propsType = {
@@ -15,28 +15,41 @@ type propsType = {
 const MovieContext = React.createContext<contextMovieType>({
   Movies: [],
   isLoading: true,
-  width: 1080,
+  getMovie: (props: string) => {
+    return 0;
+  },
 });
+
+export const getMovie = async (props: string) => {
+  const response = await fetch(
+    `https://owen-wilson-wow-api.onrender.com/wows/random?movie=${props}`
+  )
+    .then((res) => res.json())
+    .then((responseData) => {
+      const movie = {
+        key: responseData.movie.split(" ").join("") + Math.random(),
+        movie: responseData.movie,
+        poster: responseData.poster,
+        movie_duration: responseData.movie_duration,
+        year: responseData.year,
+        cast: responseData.character,
+        director: responseData.director,
+        releaseDate: responseData.release_date,
+        video: responseData.video,
+      };
+      return movie;
+    });
+};
 
 export const MovieContextProvider: React.FC<propsType> = (props) => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [windowWidth, setWidth] = useState<number>(1080);
   const [moviesList, setMoviesList] = useState<MovieType[]>([]);
-
-  if (typeof window !== "undefined") {
-    const handleResize = () => {
-      if (windowWidth != window.innerWidth) return setWidth(window.innerWidth);
-    };
-    window.addEventListener("resize", handleResize);
-  }
 
   useEffect(() => {
     const loadedMovies: MovieType[] = [];
     const fetchMovies = async () => {
       const response = await fetch(
-        `https://owen-wilson-wow-api.herokuapp.com/wows/random?results=${
-          Math.floor((windowWidth - 100) / 150) * 2
-        }`
+        `https://owen-wilson-wow-api.onrender.com/wows/random?results=20`
       )
         .then((res) => res.json())
         .then((responseData) => {
@@ -65,7 +78,7 @@ export const MovieContextProvider: React.FC<propsType> = (props) => {
       value={{
         Movies: moviesList,
         isLoading: isLoading,
-        width: windowWidth,
+        getMovie: getMovie,
       }}
     >
       {props.children}

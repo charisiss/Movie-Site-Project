@@ -15,6 +15,7 @@ type contextCommentType = {
   comments: movieListType[];
   isLoading: boolean;
   addComment: (props: { movie: string; comment: commentType }) => {};
+  getComments: (props: string) => {};
 };
 
 type propsType = {
@@ -27,7 +28,28 @@ const CommentContext = React.createContext<contextCommentType>({
   addComment: (props: { movie: string; comment: commentType }) => {
     return 0;
   },
+  getComments: (props: string) => {
+    return 0;
+  },
 });
+
+export const getComments = async (props: string) => {
+  let loadedComments: commentType[] = [];
+  fetch(
+    `https://totemic-chalice-352009-default-rtdb.europe-west1.firebasedatabase.app/comments/${props}.json`
+  )
+    .then((res) => res.json())
+    .then((responseData) => {
+      for (const key in responseData) {
+        loadedComments.push({
+          name: responseData[key].name,
+          comment: responseData[key].comment,
+        });
+      }
+    });
+  console.log(loadedComments);
+  return loadedComments;
+};
 
 export const addComment = async (props: {
   movie: string;
@@ -50,7 +72,7 @@ export const CommentContextProvider: React.FC<propsType> = (props) => {
   const [commentsList, setCommentsList] = useState<movieListType[]>([]);
 
   useEffect(() => {
-    var loadedComments: commentType[] = [];
+    let loadedComments: commentType[] = [];
     const loadedMovies: movieListType[] = [];
     fetch(
       "https://totemic-chalice-352009-default-rtdb.europe-west1.firebasedatabase.app/comments.json"
@@ -81,6 +103,7 @@ export const CommentContextProvider: React.FC<propsType> = (props) => {
         comments: commentsList,
         isLoading: isLoading,
         addComment: addComment,
+        getComments: getComments,
       }}
     >
       {props.children}

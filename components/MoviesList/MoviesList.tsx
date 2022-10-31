@@ -2,11 +2,11 @@ import React from "react";
 import MovieCard from "./MovieCard";
 import classes from "./MoviesList.module.css";
 import { MovieType } from "../../types/MovieType";
+import { Grid } from "@mui/material";
 
 type moviesType = {
   movies: MovieType[];
-  width: number; // Width of the screen to calculate the movies per row
-  size: number; // Declare rows size
+  size: number;
 };
 
 const MovieList: React.FC<moviesType> = (props) => {
@@ -20,32 +20,25 @@ const MovieList: React.FC<moviesType> = (props) => {
   }
   const movieSeparatedLists = sliceIntoChunks(
     props,
-    Math.floor((props.width - 100) / 150)
+    Math.floor((1080 - 100) / 150)
   );
 
   return (
-    <div
-      style={{
-        margin: "1em",
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-      }}
-    >
-      {movieSeparatedLists.map((list, index) => {
-        if (props.size !== -1 && props.size <= index) return;
-        return (
-          <div className={classes.row} key={Math.random()}>
-            {list.map((movie, index) => {
-              return (
-                <React.Fragment key={movie.key}>
-                  <MovieCard movie={movie} />
-                </React.Fragment>
-              );
-            })}
-          </div>
-        );
-      })}
+    <div>
+      <Grid
+        container
+        spacing={{ xs: 2, md: 3 }}
+        columns={{ xs: 5, sm: 8, md: 12 }}
+      >
+        {props.movies.map((list, index) => {
+          if (props.size !== -1 && props.size <= index) return;
+          return (
+            <Grid item key={Math.random() * 1}>
+              <MovieCard movie={list} key={Math.random() * 1} />
+            </Grid>
+          );
+        })}
+      </Grid>
     </div>
   );
 };

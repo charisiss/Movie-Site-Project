@@ -18,38 +18,34 @@ type movieListType = {
 const CommentsList = () => {
   const router = useRouter();
   const ctx = useContext(CommentContext);
-  const [moviesList, setMoviesList] = useState<movieListType[]>([]);
+  const [comments, setComments] = useState<commentType[]>();
+
+  const subId = router.query.subId as string;
+  var movieComments: commentType[] = [];
 
   useEffect(() => {
-    console.log("Comments updated");
-    setMoviesList(ctx.comments);
-  }, [ctx]);
-
-  const movieComments = moviesList.filter(
-    (movie) => movie.movieName == router.query.subId
-  );
+    const test = ctx.getComments(subId);
+    console.log(test);
+    setComments(test);
+  }, []);
 
   return (
     <div>
       <Divider
         size="50"
         title={`${
-          movieComments[0] != undefined ? movieComments[0].comments.length : 0
+          movieComments.length != 0 ? movieComments.length : 0
         }  Comments`}
       />
       <br />
       <AddComment />
-      {movieComments.map((comment) =>
-        comment.comments.map((comment) => {
-          return (
-            <Comment
-              key={comment.name + Math.random()}
-              text={comment.comment}
-              user={comment.name}
-            />
-          );
-        })
-      )}
+      {movieComments.map((comment) => (
+        <Comment
+          key={comment.name + Math.random()}
+          text={comment.comment}
+          user={comment.name}
+        />
+      ))}
     </div>
   );
 };

@@ -4,36 +4,38 @@ import Layout from "../../components/layout/Layout";
 import MovieContext from "../../store/Movies-Context";
 import CommentsList from "../../components/Comments/CommentsList";
 import Divider from "../../components/Divider/Divider";
-import { Button, CircularProgress, Rating } from "@mui/material";
+import { Button, CircularProgress, Grid, Rating } from "@mui/material";
 import MoviesList from "../../components/MoviesList/MoviesList";
 
 import classes from "./SingleMoviePage.module.css";
 import { CommentContextProvider } from "../../store/Comments-Context";
 import PlayArrow from "@mui/icons-material/PlayArrow";
+import Image from "next/image";
 
-const HelloPage = () => {
-  const router = useRouter();
-  const [displayVideo, setDisplayVideo] = useState("none");
-  const [value, setValue] = useState<number | null>(2);
-  const recommendsRef = useRef<HTMLHeadingElement>(null);
-  const [recommendsWidth, setRecommendsWidth] = useState<number>();
-  const ctx = useContext(MovieContext);
-  const item = ctx.Movies.find(
-    (element) => element.movie == router.query.subId
+export async function getServerSideProps(context: any) {
+  const test = context.params.subId;
+  const response = await fetch(
+    `https://owen-wilson-wow-api.onrender.com/wows/random?movie=${test}`
   );
+  const res = await response.json();
+  return {
+    props: { item: res },
+  };
+}
 
-  useEffect(() => {
-    if (recommendsRef) {
-      setRecommendsWidth(recommendsRef.current?.offsetWidth);
-    }
-  }, []);
+const SingleMoviePage = (props: any) => {
+  const [displayVideo, setDisplayVideo] = useState("none");
+
+  const ctx = useContext(MovieContext);
+
+  const item = props.item[0];
 
   return (
     <Layout pageId={item?.movie}>
       <main className={classes.main}>
         <div className={`${classes.row} ${classes.card}`}>
           <div className={classes.col}>
-            <img src={item?.poster} height="500"></img>
+            <Image src={`${item?.poster}`} height={1400} width={900} />
           </div>
           <div className={`${classes.descCol} ${classes.colPad}`}>
             <h1>{item?.movie}</h1>
@@ -49,14 +51,7 @@ const HelloPage = () => {
               publishing software like Aldus PageMaker including versions of
               Lorem Ipsum.
             </p>
-            <Rating
-              name="simple-controlled"
-              value={value}
-              onChange={(event, newValue) => {
-                setValue(newValue);
-              }}
-              readOnly
-            />
+            <Rating name="simple-controlled" value={3} readOnly />
             <div className={classes.row}>
               <div className={`${classes.col} ${classes.textBold}`}>
                 <p>Release:</p>
@@ -96,32 +91,26 @@ const HelloPage = () => {
         )}
 
         <br />
-        <div className={`${classes.row} ${classes.comRow}`}>
-          <div className={`${classes.col}`}>
+        <Grid container spacing={1}>
+          <Grid item xs>
             <Divider size="10" title="Comments"></Divider>
             <CommentContextProvider>
               <CommentsList />
             </CommentContextProvider>
-          </div>
-          <div className={`${classes.col}`} ref={recommendsRef}>
+          </Grid>
+          <Grid item xs>
             <Divider size="10" title="You may also like"></Divider>
             {ctx.isLoading && (
               <div className={classes.loading}>
                 <CircularProgress color="inherit" />
               </div>
             )}
-            {
-              <MoviesList
-                movies={ctx.Movies}
-                width={650}
-                size={2}
-              /> /*recommendsWidth != undefined ? recommendsWidth : */
-            }
-          </div>
-        </div>
+            {<MoviesList movies={ctx.Movies} size={6} />}
+          </Grid>
+        </Grid>
       </main>
     </Layout>
   );
 };
 
-export default HelloPage;
+export default SingleMoviePage;
