@@ -1,21 +1,15 @@
-import { stringify } from "querystring";
-import React, { ReactNode, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 
 type commentType = {
   comment: string;
-  name: string;
-};
-
-type movieListType = {
-  movieName: string;
-  comments: commentType[];
+  id: string;
 };
 
 type contextCommentType = {
-  comments: movieListType[];
-  isLoading: boolean;
-  addComment: (props: { movie: string; comment: commentType }) => {};
-  getComments: (props: string) => {};
+  comments: commentType[];
+  addComment: (props: { comment: string }) => {};
+  getComments: (props: string) => Promise<commentType[]>;
+  updateComments: (props: string) => {};
 };
 
 type propsType = {
@@ -24,42 +18,38 @@ type propsType = {
 
 const CommentContext = React.createContext<contextCommentType>({
   comments: [],
-  isLoading: true,
-  addComment: (props: { movie: string; comment: commentType }) => {
-    return 0;
+  addComment: (props: { comment: string }) => {
+    return {};
   },
   getComments: (props: string) => {
-    return 0;
+    return Promise.resolve([]);
+  },
+  updateComments: (props: string) => {
+    return {};
   },
 });
 
 export const getComments = async (props: string) => {
-  let loadedComments: commentType[] = [];
-  fetch(
-    `https://totemic-chalice-352009-default-rtdb.europe-west1.firebasedatabase.app/comments/${props}.json`
+  const loadedComments: Array<commentType> = [];
+
+  return fetch(
+    `https://totemic-chalice-352009-default-rtdb.europe-west1.firebasedatabase.app/redComments/${props}.json`
   )
     .then((res) => res.json())
     .then((responseData) => {
       for (const key in responseData) {
-        loadedComments.push({
-          name: responseData[key].name,
-          comment: responseData[key].comment,
-        });
+        loadedComments.push({ comment: responseData[key].comment, id: key });
       }
+      return loadedComments;
     });
-  console.log(loadedComments);
-  return loadedComments;
 };
 
-export const addComment = async (props: {
-  movie: string;
-  comment: commentType;
-}) => {
-  const response = await fetch(
-    `https://totemic-chalice-352009-default-rtdb.europe-west1.firebasedatabase.app/comments/${props.movie}.json`,
+export const addComment = async (props: { comment: string }) => {
+  await fetch(
+    `https://totemic-chalice-352009-default-rtdb.europe-west1.firebasedatabase.app/redComments/onWait.json`,
     {
       method: "POST",
-      body: JSON.stringify(props.comment),
+      body: JSON.stringify(props),
       headers: {
         "Content-Type": "application/json",
       },
@@ -68,42 +58,23 @@ export const addComment = async (props: {
 };
 
 export const CommentContextProvider: React.FC<propsType> = (props) => {
-  const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [commentsList, setCommentsList] = useState<movieListType[]>([]);
+  const [commentsList, setCommentsList] = useState<commentType[]>([]);
 
-  useEffect(() => {
-    let loadedComments: commentType[] = [];
-    const loadedMovies: movieListType[] = [];
-    fetch(
-      "https://totemic-chalice-352009-default-rtdb.europe-west1.firebasedatabase.app/comments.json"
-    )
-      .then((res) => res.json())
-      .then((responseData) => {
-        for (const key in responseData) {
-          for (const i in responseData[key]) {
-            loadedComments.push({
-              name: responseData[key][i].name,
-              comment: responseData[key][i].comment,
-            });
-          }
-          loadedMovies.push({
-            movieName: key,
-            comments: loadedComments,
-          });
-          loadedComments = [];
-        }
-      });
-    setCommentsList(loadedMovies);
-    setIsLoading(false);
-  }, []);
+  const updateComments = (props: string) => {
+    getComments(props).then((value) => {
+      setCommentsList([]);
+      value.map((item) => setCommentsList((prev) => [item, ...prev]));
+    });
+    return {};
+  };
 
   return (
     <CommentContext.Provider
       value={{
         comments: commentsList,
-        isLoading: isLoading,
         addComment: addComment,
         getComments: getComments,
+        updateComments: updateComments,
       }}
     >
       {props.children}

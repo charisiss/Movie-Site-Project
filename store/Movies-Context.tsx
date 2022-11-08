@@ -27,16 +27,17 @@ export const getMovie = async (props: string) => {
     .then((res) => res.json())
     .then((responseData) => {
       const movie = {
-        key: responseData.movie.split(" ").join("") + Math.random(),
-        movie: responseData.movie,
-        poster: responseData.poster,
-        movie_duration: responseData.movie_duration,
-        year: responseData.year,
-        cast: responseData.character,
-        director: responseData.director,
-        releaseDate: responseData.release_date,
-        video: responseData.video,
+        key: responseData[0].movie.split(" ").join("") + Math.random(),
+        movie: responseData[0].movie,
+        poster: responseData[0].poster,
+        movie_duration: responseData[0].movie_duration,
+        year: responseData[0].year,
+        cast: responseData[0].character,
+        director: responseData[0].director,
+        releaseDate: responseData[0].release_date,
+        video: responseData[0].video,
       };
+      console.log(movie);
       return movie;
     });
 };

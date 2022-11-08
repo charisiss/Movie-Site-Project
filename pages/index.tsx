@@ -38,8 +38,8 @@ const Home: NextPage = () => {
         >
           <p style={{ textAlign: "center", fontSize: "16px" }}>
             <b>CSMovies, Watch Movie Trailers </b>
-            <br /> <b>This is a demo</b> of a movies website, builded from{" "}
-            <b>Charisis Samaras</b>, <br />
+            <br /> <b>This is a demo</b> of a movies website, builded by
+            <b> Charisis Samaras</b>, <br />
             in purpose to learn about react apps
           </p>
           <div>
@@ -55,14 +55,14 @@ const Home: NextPage = () => {
             <CircularProgress color="inherit" />
           </div>
         )}
-        {<MoviesList movies={ctx.Movies} width={ctx.width} size={-1} />}
+        {<MoviesList movies={ctx.Movies} size={-1} />}
         <Divider size="15" title="Latest MoviesView" />
         {ctx.isLoading && (
           <div className={classes.loading}>
             <CircularProgress color="inherit" />
           </div>
         )}
-        {<MoviesList movies={ctx.Movies} width={ctx.width} size={-1} />}
+        {<MoviesList movies={ctx.Movies} size={-1} />}
       </div>
     </Layout>
   );

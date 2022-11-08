@@ -24,14 +24,22 @@ export async function getServerSideProps(context: any) {
 }
 
 const SingleMoviePage = (props: any) => {
-  const [displayVideo, setDisplayVideo] = useState("none");
+  const [displayVideo, setDisplayVideo] = useState(false);
 
   const ctx = useContext(MovieContext);
-
   const item = props.item[0];
 
+  useEffect(() => {
+    console.log("sad");
+    // console.log(typeof ctx.getMovie(props.item));
+    // const f1 = async () => {
+    //   let test = await ctx.getMovie(props.item);
+    // };
+    // f1();
+  }, []);
+
   return (
-    <Layout pageId={item?.movie}>
+    <Layout pageId={item.movie}>
       <main className={classes.main}>
         <div className={`${classes.row} ${classes.card}`}>
           <div className={classes.col}>
@@ -59,9 +67,9 @@ const SingleMoviePage = (props: any) => {
                 <p>Cast:</p>
               </div>
               <div className={`${classes.col} ${classes.colPad}`}>
-                <p>{item?.releaseDate}</p>
-                <p>{item?.director}</p>
-                <p>{item?.cast}</p>
+                <p>{item.release_date}</p>
+                <p>{item.director}</p>
+                <p>{item.character}</p>
               </div>
             </div>
             <br />
@@ -69,7 +77,7 @@ const SingleMoviePage = (props: any) => {
               variant="outlined"
               startIcon={<PlayArrow />}
               onClick={() => {
-                setDisplayVideo("");
+                setDisplayVideo(!displayVideo);
               }}
             >
               Watch Trailer
@@ -77,10 +85,9 @@ const SingleMoviePage = (props: any) => {
           </div>
         </div>
         <br />
-        {item?.video != undefined && (
+        {item?.video != undefined && displayVideo && (
           <div
             className={`${classes.row} ${classes.card} ${classes.videoCard}`}
-            style={{ display: displayVideo }}
           >
             <iframe
               width="1250px"
