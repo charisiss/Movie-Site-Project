@@ -2,12 +2,13 @@ import React, { useState, useEffect } from "react";
 
 type commentType = {
   comment: string;
+  name: string;
   id: string;
 };
 
 type contextCommentType = {
   comments: commentType[];
-  addComment: (props: { comment: string }) => {};
+  addComment: (props: { movie: string; comment: commentType }) => {};
   getComments: (props: string) => Promise<commentType[]>;
   updateComments: (props: string) => {};
 };
@@ -18,7 +19,7 @@ type propsType = {
 
 const CommentContext = React.createContext<contextCommentType>({
   comments: [],
-  addComment: (props: { comment: string }) => {
+  addComment: (props: { movie: string; comment: commentType }) => {
     return {};
   },
   getComments: (props: string) => {
@@ -33,23 +34,30 @@ export const getComments = async (props: string) => {
   const loadedComments: Array<commentType> = [];
 
   return fetch(
-    `https://totemic-chalice-352009-default-rtdb.europe-west1.firebasedatabase.app/redComments/${props}.json`
+    `https://totemic-chalice-352009-default-rtdb.europe-west1.firebasedatabase.app/comments/${props}.json`
   )
     .then((res) => res.json())
     .then((responseData) => {
       for (const key in responseData) {
-        loadedComments.push({ comment: responseData[key].comment, id: key });
+        loadedComments.push({
+          comment: responseData[key].comment,
+          name: responseData[key].name,
+          id: key,
+        });
       }
       return loadedComments;
     });
 };
 
-export const addComment = async (props: { comment: string }) => {
+export const addComment = async (props: {
+  movie: string;
+  comment: commentType;
+}) => {
   await fetch(
-    `https://totemic-chalice-352009-default-rtdb.europe-west1.firebasedatabase.app/redComments/onWait.json`,
+    `https://totemic-chalice-352009-default-rtdb.europe-west1.firebasedatabase.app/comments/${props.movie}.json`,
     {
       method: "POST",
-      body: JSON.stringify(props),
+      body: JSON.stringify(props.comment),
       headers: {
         "Content-Type": "application/json",
       },

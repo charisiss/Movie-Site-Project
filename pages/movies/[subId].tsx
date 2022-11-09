@@ -13,9 +13,9 @@ import PlayArrow from "@mui/icons-material/PlayArrow";
 import Image from "next/image";
 
 export async function getServerSideProps(context: any) {
-  const test = context.params.subId;
+  const subID = context.params.subId;
   const response = await fetch(
-    `https://owen-wilson-wow-api.onrender.com/wows/random?movie=${test}`
+    `https://owen-wilson-wow-api.onrender.com/wows/random?movie=${subID}`
   );
   const res = await response.json();
   return {
@@ -28,15 +28,6 @@ const SingleMoviePage = (props: any) => {
 
   const ctx = useContext(MovieContext);
   const item = props.item[0];
-
-  useEffect(() => {
-    console.log("sad");
-    // console.log(typeof ctx.getMovie(props.item));
-    // const f1 = async () => {
-    //   let test = await ctx.getMovie(props.item);
-    // };
-    // f1();
-  }, []);
 
   return (
     <Layout pageId={item.movie}>
