@@ -1,10 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-type commentType = {
-  comment: string;
-  name: string;
-  id: string;
-};
+import { commentType } from "../types/CommentType";
 
 type contextCommentType = {
   comments: commentType[];

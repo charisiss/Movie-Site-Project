@@ -4,12 +4,7 @@ import Comment from "./Comment";
 import CommentContext from "../../store/Comments-Context";
 import { useRouter } from "next/router";
 import Divider from "../Divider/Divider";
-
-type commentType = {
-  comment: string;
-  name: string;
-  id: string;
-};
+import { commentType } from "../../types/CommentType";
 
 const CommentsList = () => {
   const router = useRouter();
