@@ -33,6 +33,7 @@ const MovieCard: React.FC<Props> = (props) => {
               height="290"
               width={200}
               className={classes.img}
+              alt="movieImage"
             />
             <div className={classes.ImageBackdrop}>
               <IconButton

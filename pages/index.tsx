@@ -55,14 +55,14 @@ const Home: NextPage = () => {
             <CircularProgress color="inherit" />
           </div>
         )}
-        {<MoviesList movies={ctx.Movies} size={-1} />}
+        {<MoviesList movies={ctx.Movies} size={-1} sort={true}/>}
         <Divider size="15" title="Latest MoviesView" />
         {ctx.isLoading && (
           <div className={classes.loading}>
             <CircularProgress color="inherit" />
           </div>
         )}
-        {<MoviesList movies={ctx.Movies} size={-1} />}
+        {<MoviesList movies={ctx.Movies} size={-1} sort={true}/>}
       </div>
     </Layout>
   );

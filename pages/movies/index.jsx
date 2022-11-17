@@ -35,7 +35,7 @@ const HelloPage = () => {
             <CircularProgress color="inherit" />
           </div>
         )}
-        {<MoviesList movies={ctx.Movies} width={ctx.width} />}
+        {<MoviesList movies={ctx.Movies} width={ctx.width} sort={true} />}
       </div>
     </Layout>
   );

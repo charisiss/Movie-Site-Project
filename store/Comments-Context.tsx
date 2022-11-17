@@ -1,6 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 
 import { commentType } from "../types/CommentType";
+
+const URL = "https://totemic-chalice-352009-default-rtdb.europe-west1.firebasedatabase.app"
 
 type contextCommentType = {
   comments: commentType[];
@@ -9,28 +11,14 @@ type contextCommentType = {
   updateComments: (props: string) => {};
 };
 
-type propsType = {
-  children: JSX.Element | JSX.Element[];
-};
 
-const CommentContext = React.createContext<contextCommentType>({
-  comments: [],
-  addComment: (props: { movie: string; comment: commentType }) => {
-    return {};
-  },
-  getComments: (props: string) => {
-    return Promise.resolve([]);
-  },
-  updateComments: (props: string) => {
-    return {};
-  },
-});
+const CommentContext = React.createContext<contextCommentType | undefined>(undefined);
 
-export const getComments = async (props: string) => {
+export const getComments = async (movieName: string) => {
   const loadedComments: Array<commentType> = [];
 
   return fetch(
-    `https://totemic-chalice-352009-default-rtdb.europe-west1.firebasedatabase.app/comments/${props}.json`
+    `${URL}/comments/${movieName}.json`
   )
     .then((res) => res.json())
     .then((responseData) => {
@@ -49,8 +37,8 @@ export const addComment = async (props: {
   movie: string;
   comment: commentType;
 }) => {
-  await fetch(
-    `https://totemic-chalice-352009-default-rtdb.europe-west1.firebasedatabase.app/comments/${props.movie}.json`,
+  return await fetch(
+    `${URL}/comments/${props.movie}.json`,
     {
       method: "POST",
       body: JSON.stringify(props.comment),
@@ -61,13 +49,12 @@ export const addComment = async (props: {
   );
 };
 
-export const CommentContextProvider: React.FC<propsType> = (props) => {
+export const CommentContextProvider: React.FC<{children: JSX.Element | JSX.Element[]}> = (props) => {
   const [commentsList, setCommentsList] = useState<commentType[]>([]);
 
-  const updateComments = (props: string) => {
-    getComments(props).then((value) => {
-      setCommentsList([]);
-      value.map((item) => setCommentsList((prev) => [item, ...prev]));
+  const updateComments = (movieName: string) => {
+    getComments(movieName).then((value) => {
+      setCommentsList(value.map((item) => item));
     });
     return {};
   };
@@ -86,4 +73,11 @@ export const CommentContextProvider: React.FC<propsType> = (props) => {
   );
 };
 
-export default CommentContext;
+export const useGetCommentContext = () => {
+  const ctx = useContext(CommentContext)
+  if (!ctx) throw new Error("Comment Context not undefined");
+
+  return ctx;
+}
+
+export default CommentContextProvider;

@@ -5,8 +5,9 @@ import Tooltip from "@mui/material/Tooltip";
 
 import classes from "./MovieInfo.module.css";
 import { useRouter } from "next/router";
+import { MovieType } from "../../types/MovieType";
 
-const MovieInfo = (props: any) => {
+const MovieInfo = (props: MovieType) => {
   const router = useRouter();
 
   return (

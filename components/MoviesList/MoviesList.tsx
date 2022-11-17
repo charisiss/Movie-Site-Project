@@ -9,6 +9,7 @@ import SortByAlphaIcon from "@mui/icons-material/SortByAlpha";
 type moviesType = {
   movies: MovieType[];
   size: number;
+  sort: boolean;
 };
 
 const MovieList: React.FC<moviesType> = (props) => {
@@ -19,27 +20,10 @@ const MovieList: React.FC<moviesType> = (props) => {
     setMovies(props.movies);
   }, [props.movies]);
 
-  function shuffle(array: moviesType[]) {
-    let currentIndex = array.length,
-      randomIndex;
-
-    while (currentIndex != 0) {
-      randomIndex = Math.floor(Math.random() * currentIndex);
-      currentIndex--;
-
-      [array[currentIndex], array[randomIndex]] = [
-        array[randomIndex],
-        array[currentIndex],
-      ];
-    }
-
-    return array;
-  }
-
-  const HandleSort = (props1: string) => {
-    if (props1 === "pop") {
-      setMovies(shuffle(props.movies));
-    } else if (props1 === "asc") {
+  const HandleSort = (type: string) => {
+    if (type === "pop") {
+      setMovies(props.movies.reverse());
+    } else if (type === "asc") {
       setSort("dsc");
       setMovies(props.movies.sort((a, b) => (a.movie > b.movie ? 1 : -1)));
     } else {
@@ -51,7 +35,7 @@ const MovieList: React.FC<moviesType> = (props) => {
 
   return (
     <div>
-      <br />
+      <br />{props.sort &&
       <Grid container spacing={2}>
         <Grid item>
           <Button
@@ -73,12 +57,14 @@ const MovieList: React.FC<moviesType> = (props) => {
             Popular
           </Button>
         </Grid>
-      </Grid>
+      </Grid>}
 
       <Grid
         container
         spacing={{ xs: 2, md: 3 }}
         columns={{ xs: 5, sm: 8, md: 12 }}
+        alignItems="center"
+        justifyContent="center"
       >
         {movies &&
           movies.map((list, index) => {

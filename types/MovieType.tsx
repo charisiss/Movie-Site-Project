@@ -4,8 +4,8 @@ export type MovieType = {
   poster: string;
   movie_duration: string;
   year: number;
-  cast: string;
+  character: string;
   director: string;
-  releaseDate: string;
+  release_date: string;
   video: { "1080p": string };
 };

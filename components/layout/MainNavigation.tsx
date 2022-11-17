@@ -18,6 +18,7 @@ const MainNavigation = (props: Props) => {
           width={200}
           height={40}
           className={classes.img}
+          alt="logo image"
         />
       </Link>
       <ul className={classes.navigationLink}>

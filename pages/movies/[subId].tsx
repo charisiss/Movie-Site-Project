@@ -11,6 +11,7 @@ import classes from "./SingleMoviePage.module.css";
 import { CommentContextProvider } from "../../store/Comments-Context";
 import PlayArrow from "@mui/icons-material/PlayArrow";
 import Image from "next/image";
+import { MovieType } from "../../types/MovieType";
 
 export async function getServerSideProps(context: any) {
   const subID = context.params.subId;
@@ -23,24 +24,25 @@ export async function getServerSideProps(context: any) {
   };
 }
 
-const SingleMoviePage = (props: any) => {
+const SingleMoviePage = (props: {item: MovieType[]}) => {
   const [displayVideo, setDisplayVideo] = useState(false);
 
   const ctx = useContext(MovieContext);
   const item = props.item[0];
+  console.log('item: ', typeof props);
 
   return (
     <Layout pageId={item.movie}>
       <main className={classes.main}>
         <div className={`${classes.row} ${classes.card}`}>
           <div className={classes.col}>
-            <Image src={`${item?.poster}`} height={1400} width={900} />
+            <Image src={`${item?.poster}`} height={1400} width={900} alt="movieImage" />
           </div>
           <div className={`${classes.descCol} ${classes.colPad}`}>
             <h1>{item?.movie}</h1>
             <p>
               Lorem Ipsum is simply dummy text of the printing and typesetting
-              industry. Lorem Ipsum has been the industry's standard dummy text
+              industry. Lorem Ipsum has been the industrys standard dummy text
               ever since the 1500s, when an unknown printer took a galley of
               type and scrambled it to make a type specimen book. It has
               survived not only five centuries, but also the leap into
@@ -103,7 +105,7 @@ const SingleMoviePage = (props: any) => {
                 <CircularProgress color="inherit" />
               </div>
             )}
-            {<MoviesList movies={ctx.Movies} size={6} />}
+            {<MoviesList movies={ctx.Movies} size={6} sort={false} />}
           </Grid>
         </Grid>
       </main>

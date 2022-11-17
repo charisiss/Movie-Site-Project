@@ -6,7 +6,13 @@ import AddComment from "./AddComment";
 
 import classes from "./Comment.module.css";
 
-const Comment = (props: any) => {
+type commentType = {
+  key: string,
+  text: string,
+  user: string
+}
+
+const Comment = (props: commentType) => {
   return (
     <div>
       <Box>
