@@ -1,12 +1,12 @@
 import React, { useState } from "react";
+import { useRouter } from "next/router";
+import Image from "next/image";
 import IconButton from "@mui/material/IconButton";
 import PlayArrow from "@mui/icons-material/PlayArrow";
 
+import MovieInfo from "../MovieInfo/MovieInfo";
+import { MovieType } from "../../../types/MovieType";
 import classes from "./MovieCard.module.css";
-import MovieInfo from "./MovieInfo";
-import { useRouter } from "next/router";
-import { MovieType } from "../../types/MovieType";
-import Image from "next/image";
 
 type Props = {
   movie: MovieType;
@@ -48,6 +48,7 @@ const MovieCard: React.FC<Props> = (props) => {
               </IconButton>
             </div>
           </div>
+
           <h4 className={classes.cardTitle}> {props.movie.movie}</h4>
           <p className={classes.cardDescription}>
             {props.movie.year} · {props.movie.movie_duration.slice(0, -3)}h

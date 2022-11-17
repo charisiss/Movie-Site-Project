@@ -1,19 +1,17 @@
-import React, { useContext, useEffect, useState } from "react";
-import AddComment from "./AddComment";
-import Comment from "./Comment";
-import CommentContext from "../../store/Comments-Context";
+import React, { useEffect } from "react";
 import { useRouter } from "next/router";
-import Divider from "../Divider/Divider";
-import { commentType } from "../../types/CommentType";
-import { useGetCommentContext } from "../../store/Comments-Context";
 
+import AddComment from "../AddComment/AddComment";
+import Comment from "../Comment/Comment";
+import Divider from "../../Divider/Divider";
+import { useGetCommentContext } from "../../../store/CommentsContext";
 
 const CommentsList = () => {
   const router = useRouter();
 
   const subId = router.query.subId as string;
 
-  const {comments, updateComments} = useGetCommentContext();
+  const { comments, updateComments } = useGetCommentContext();
 
   useEffect(() => {
     updateComments(subId);
@@ -28,13 +26,16 @@ const CommentsList = () => {
         }  Comments`}
       />
       <br />
+
       <AddComment />
+
       {comments &&
         comments.map((comment) => (
           <Comment
+            id={comment.id}
+            comment={comment.comment}
+            name={comment.name}
             key={comment.id}
-            text={comment.comment}
-            user={comment.name}
           />
         ))}
     </div>

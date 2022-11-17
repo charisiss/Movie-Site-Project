@@ -1,16 +1,14 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext } from "react";
 import type { NextPage } from "next";
-import Layout from "../components/layout/Layout";
-import classes from "./Home.module.css";
-import FacebookIcon from "@mui/icons-material/Facebook";
-import TwitterIcon from "@mui/icons-material/Twitter";
-import LinkedInIcon from "@mui/icons-material/LinkedIn";
-import PinterestInIcon from "@mui/icons-material/Pinterest";
-import SearchForm from "../components/SearchForm/SearchForm";
-import MoviesList from "../components/MoviesList/MoviesList";
-import Divider from "../components/Divider/Divider";
+import { Facebook, Pinterest, Twitter, LinkedIn } from "@mui/icons-material";
 import { CircularProgress } from "@mui/material";
-import MovieContext from "../store/Movies-Context";
+
+import Layout from "../components/Layout";
+import classes from "./Home.module.css";
+import SearchForm from "../components/SearchForm/SearchForm";
+import MoviesList from "../components/MoviesList/MoviesList/MoviesList";
+import Divider from "../components/Divider/Divider";
+import MovieContext from "../store/MoviesContext";
 
 const Home: NextPage = () => {
   const ctx = useContext(MovieContext);
@@ -22,47 +20,38 @@ const Home: NextPage = () => {
         <SearchForm movies={ctx.Movies} />
       </div>
 
-      <div
-        style={{
-          margin: "2em 5vw 0px 5vw",
-          color: "black",
-        }}
-      >
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            justifyItems: "center",
-          }}
-        >
-          <p style={{ textAlign: "center", fontSize: "16px" }}>
+      <div className={classes.textBox}>
+        <div className={classes.textBoxElements}>
+          <p className={classes.textBoxText}>
             <b>CSMovies, Watch Movie Trailers </b>
             <br /> <b>This is a demo</b> of a movies website, builded by
             <b> Charisis Samaras</b>, <br />
             in purpose to learn about react apps
           </p>
           <div>
-            <FacebookIcon style={{ color: "#1877F2", cursor: "pointer" }} />
-            <TwitterIcon style={{ color: "#1DA1F2", cursor: "pointer" }} />
-            <LinkedInIcon style={{ color: "#0A66C2", cursor: "pointer" }} />
-            <PinterestInIcon style={{ color: "#BD081C", cursor: "pointer" }} />
+            <Facebook style={{ color: "#1877F2", cursor: "pointer" }} />
+            <Twitter style={{ color: "#1DA1F2", cursor: "pointer" }} />
+            <LinkedIn style={{ color: "#0A66C2", cursor: "pointer" }} />
+            <Pinterest style={{ color: "#BD081C", cursor: "pointer" }} />
           </div>
         </div>
+
         <Divider size="15" title="Recomended" />
         {ctx.isLoading && (
           <div className={classes.loading}>
             <CircularProgress color="inherit" />
           </div>
         )}
-        {<MoviesList movies={ctx.Movies} size={-1} sort={true}/>}
+
+        {<MoviesList movies={ctx.Movies} size={-1} sort={true} />}
         <Divider size="15" title="Latest MoviesView" />
         {ctx.isLoading && (
           <div className={classes.loading}>
             <CircularProgress color="inherit" />
           </div>
         )}
-        {<MoviesList movies={ctx.Movies} size={-1} sort={true}/>}
+
+        {<MoviesList movies={ctx.Movies} size={-1} sort={true} />}
       </div>
     </Layout>
   );

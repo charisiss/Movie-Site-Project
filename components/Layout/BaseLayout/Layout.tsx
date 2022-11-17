@@ -1,9 +1,10 @@
-import React, { ReactNode, useState } from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import Head from "next/head";
-import classes from "./Layout.module.css";
 import { Backdrop, Button, TextField } from "@mui/material";
-import MainNavigation from "./MainNavigation";
+
+import MainNavigation from "../MainNavigation/MainNavigation";
+import classes from "./Layout.module.css";
 
 type Props = {
   children?: React.ReactNode;
@@ -16,6 +17,11 @@ const Layout: React.FC<Props> = (props) => {
 
   return (
     <React.Fragment>
+      <Head>
+        <title>CSMovies {pageTitle && `- ${pageTitle}`}</title>
+        <link rel="icon" href="/favicon.png" />
+      </Head>
+
       <Backdrop
         sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
         open={openBackdrop}
@@ -56,10 +62,7 @@ const Layout: React.FC<Props> = (props) => {
           </div>
         </div>
       </Backdrop>
-      <Head>
-        <title>CSMovies {pageTitle && `- ${pageTitle}`}</title>
-        <link rel="icon" href="/favicon.png" />
-      </Head>
+
       <div className={classes.main}>
         <MainNavigation
           openBackdrop={() => {

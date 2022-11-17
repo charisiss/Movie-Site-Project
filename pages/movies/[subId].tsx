@@ -1,17 +1,17 @@
-import { useContext, useEffect, useRef, useState } from "react";
-import { useRouter } from "next/router";
-import Layout from "../../components/layout/Layout";
-import MovieContext from "../../store/Movies-Context";
-import CommentsList from "../../components/Comments/CommentsList";
-import Divider from "../../components/Divider/Divider";
+import { useContext, useState } from "react";
+import Image from "next/image";
+import PlayArrow from "@mui/icons-material/PlayArrow";
 import { Button, CircularProgress, Grid, Rating } from "@mui/material";
-import MoviesList from "../../components/MoviesList/MoviesList";
+
+import Layout from "../../components/Layout";
+import Divider from "../../components/Divider/Divider";
+import MoviesList from "../../components/MoviesList/MoviesList/MoviesList";
+import CommentsList from "../../components/Comments";
+import MovieContext from "../../store/MoviesContext";
+import { CommentContextProvider } from "../../store/CommentsContext";
+import { MovieType } from "../../types/MovieType";
 
 import classes from "./SingleMoviePage.module.css";
-import { CommentContextProvider } from "../../store/Comments-Context";
-import PlayArrow from "@mui/icons-material/PlayArrow";
-import Image from "next/image";
-import { MovieType } from "../../types/MovieType";
 
 export async function getServerSideProps(context: any) {
   const subID = context.params.subId;
@@ -24,20 +24,26 @@ export async function getServerSideProps(context: any) {
   };
 }
 
-const SingleMoviePage = (props: {item: MovieType[]}) => {
+const SingleMoviePage = (props: { item: MovieType[] }) => {
   const [displayVideo, setDisplayVideo] = useState(false);
 
   const ctx = useContext(MovieContext);
   const item = props.item[0];
-  console.log('item: ', typeof props);
+  console.log("item: ", typeof props);
 
   return (
     <Layout pageId={item.movie}>
       <main className={classes.main}>
         <div className={`${classes.row} ${classes.card}`}>
           <div className={classes.col}>
-            <Image src={`${item?.poster}`} height={1400} width={900} alt="movieImage" />
+            <Image
+              src={`${item?.poster}`}
+              height={1400}
+              width={900}
+              alt="movieImage"
+            />
           </div>
+
           <div className={`${classes.descCol} ${classes.colPad}`}>
             <h1>{item?.movie}</h1>
             <p>
@@ -52,7 +58,9 @@ const SingleMoviePage = (props: {item: MovieType[]}) => {
               publishing software like Aldus PageMaker including versions of
               Lorem Ipsum.
             </p>
+
             <Rating name="simple-controlled" value={3} readOnly />
+
             <div className={classes.row}>
               <div className={`${classes.col} ${classes.textBold}`}>
                 <p>Release:</p>
@@ -78,6 +86,7 @@ const SingleMoviePage = (props: {item: MovieType[]}) => {
           </div>
         </div>
         <br />
+
         {item?.video != undefined && displayVideo && (
           <div
             className={`${classes.row} ${classes.card} ${classes.videoCard}`}

@@ -1,20 +1,16 @@
-import React from "react";
-import Divider from "../Divider/Divider";
-import Box from "@mui/material/Box";
-import TextField from "@mui/material/TextField";
-import AccountCircle from "@mui/icons-material/AccountCircle";
-import CommentContext, { useGetCommentContext } from "../../store/Comments-Context";
-import { useContext, useRef, useState } from "react";
+import React, { useState } from "react";
 import { useRouter } from "next/router";
-import { Button, IconButton, Snackbar } from "@mui/material";
-import CloseIcon from "@mui/icons-material/Close";
+import { AccountCircle, Close as CloseIcon } from "@mui/icons-material";
+import { TextField, IconButton, Snackbar, Box } from "@mui/material";
+
+import { useGetCommentContext } from "../../../store/CommentsContext";
 
 const AddComment = () => {
   const [tfValue, setTFValue] = useState<string>("");
   const router = useRouter();
   const [open, setOpen] = React.useState(false);
 
-  const {addComment, updateComments} = useGetCommentContext();
+  const { addComment, updateComments } = useGetCommentContext();
 
   const handleClose = (
     event: React.SyntheticEvent | Event,
@@ -31,7 +27,6 @@ const AddComment = () => {
     event.preventDefault();
 
     const subId = router.query.subId as string;
-
 
     addComment({
       movie: subId,
@@ -77,6 +72,7 @@ const AddComment = () => {
           />
         </Box>
       </Box>
+
       <Snackbar
         open={open}
         autoHideDuration={3000}

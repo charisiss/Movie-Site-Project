@@ -1,4 +1,5 @@
 import React from "react";
+
 import classes from "./Divider.module.css";
 
 type DividerType = {

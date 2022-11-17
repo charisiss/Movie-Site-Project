@@ -1,33 +1,20 @@
-import React, { useRef, useState } from "react";
-import SearchIcon from "@mui/icons-material/Search";
-import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
-import Button from "@mui/material/Button";
-import TextField from "@mui/material/TextField";
-
-import classes from "./SearchForm.module.css";
+import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { Search, ArrowForward } from "@mui/icons-material";
+import { Button, TextField } from "@mui/material";
 
-type movieType = {
-  key: string;
-  movie: string;
-  poster: string;
-  movie_duration: string;
-  year: number;
-  cast: string;
-  director: string;
-  releaseDate: string;
-  video: {};
-};
+import { MovieType } from "../../types/MovieType";
+import classes from "./SearchForm.module.css";
 
 type moviesType = {
-  movies: movieType[];
+  movies: MovieType[];
 };
 
 const SearchForm: React.FC<moviesType> = (props) => {
   const [moduleIsVisible, setModuleIsVisible] = useState<string>("none");
   const [inputText, setInputText] = useState<string>();
-  const [searchResults, setsearchResults] = useState<movieType[]>([]);
+  const [searchResults, setsearchResults] = useState<MovieType[]>([]);
 
   const focusHandler = () => {
     setModuleIsVisible("block");
@@ -51,7 +38,7 @@ const SearchForm: React.FC<moviesType> = (props) => {
           .toLowerCase()
           .match(inputText.toLowerCase());
         if (!testMovie) return;
-        setsearchResults((oldArray: movieType[]) => [...oldArray, movie]);
+        setsearchResults((oldArray: MovieType[]) => [...oldArray, movie]);
       });
     }
   };
@@ -71,7 +58,7 @@ const SearchForm: React.FC<moviesType> = (props) => {
           id="fullWidth"
           className={classes.searchInputText}
           InputProps={{
-            startAdornment: <SearchIcon style={{ marginRight: "10px" }} />,
+            startAdornment: <Search style={{ marginRight: "10px" }} />,
             classes: { notchedOutline: classes.noBorder },
           }}
         />
@@ -92,7 +79,7 @@ const SearchForm: React.FC<moviesType> = (props) => {
                         src={`${result.poster}`}
                         height={100}
                         width={60}
-                        style={{ marginRight: "20px" }}
+                        className={classes.img}
                       />
                       {result.movie}({result.year})
                     </div>
@@ -104,7 +91,7 @@ const SearchForm: React.FC<moviesType> = (props) => {
         </div>
 
         <Button variant="contained" className={classes.searchButton}>
-          <ArrowForwardIcon
+          <ArrowForward
             className={classes.searchArrowIcon}
             onClick={() => {
               console.log("click");

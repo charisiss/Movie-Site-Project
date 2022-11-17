@@ -1,4 +1,4 @@
-import React, { ReactNode, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 
 import { MovieType } from "../types/MovieType";
 
@@ -61,9 +61,9 @@ export const MovieContextProvider: React.FC<propsType> = (props) => {
               poster: responseData[key].poster,
               movie_duration: responseData[key].movie_duration,
               year: responseData[key].year,
-              cast: responseData[key].character,
+              character: responseData[key].character,
               director: responseData[key].director,
-              releaseDate: responseData[key].release_date,
+              release_date: responseData[key].release_date,
               video: responseData[key].video,
             });
           }

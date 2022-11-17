@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import MovieCard from "./MovieCard";
-import classes from "./MoviesList.module.css";
-import { MovieType } from "../../types/MovieType";
+import { Star, SortByAlpha } from "@mui/icons-material";
 import { Button, Grid } from "@mui/material";
-import StarIcon from "@mui/icons-material/Star";
-import SortByAlphaIcon from "@mui/icons-material/SortByAlpha";
+
+import MovieCard from "../MovieCard/MovieCard";
+import { MovieType } from "../../../types/MovieType";
+import classes from "./MoviesList.module.css";
 
 type moviesType = {
   movies: MovieType[];
@@ -12,7 +12,7 @@ type moviesType = {
   sort: boolean;
 };
 
-const MovieList: React.FC<moviesType> = (props) => {
+const MoviesList: React.FC<moviesType> = (props) => {
   const [movies, setMovies] = useState<MovieType[]>();
   const [sort, setSort] = useState<string>("asc");
 
@@ -35,29 +35,32 @@ const MovieList: React.FC<moviesType> = (props) => {
 
   return (
     <div>
-      <br />{props.sort &&
-      <Grid container spacing={2}>
-        <Grid item>
-          <Button
-            variant="contained"
-            className={classes.btn}
-            startIcon={<SortByAlphaIcon />}
-            onClick={() => HandleSort(sort)}
-          >
-            Sort ASC
-          </Button>
+      <br />
+      {props.sort && (
+        <Grid container spacing={2}>
+          <Grid item>
+            <Button
+              variant="contained"
+              className={classes.btn}
+              startIcon={<SortByAlpha />}
+              onClick={() => HandleSort(sort)}
+              style={{ color: "black" }} // test
+            >
+              Sort ASC
+            </Button>
+          </Grid>
+          <Grid item>
+            <Button
+              variant="contained"
+              className={classes.btn}
+              startIcon={<Star />}
+              onClick={() => HandleSort("pop")}
+            >
+              Popular
+            </Button>
+          </Grid>
         </Grid>
-        <Grid item>
-          <Button
-            variant="contained"
-            className={classes.btn}
-            startIcon={<StarIcon />}
-            onClick={() => HandleSort("pop")}
-          >
-            Popular
-          </Button>
-        </Grid>
-      </Grid>}
+      )}
 
       <Grid
         container
@@ -80,4 +83,4 @@ const MovieList: React.FC<moviesType> = (props) => {
   );
 };
 
-export default MovieList;
+export default MoviesList;

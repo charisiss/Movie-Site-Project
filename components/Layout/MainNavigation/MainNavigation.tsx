@@ -1,9 +1,9 @@
-import { Button } from "@mui/material";
 import Link from "next/link";
+import Image from "next/image";
 import PersonIcon from "@mui/icons-material/Person";
+import { Button } from "@mui/material";
 
 import classes from "./MainNavigation.module.css";
-import Image from "next/image";
 
 type Props = {
   openBackdrop: () => void;
@@ -12,15 +12,18 @@ type Props = {
 const MainNavigation = (props: Props) => {
   return (
     <div className={classes.navbar}>
-      <Link href="/">
-        <Image
-          src="/logo.png"
-          width={200}
-          height={40}
-          className={classes.img}
-          alt="logo image"
-        />
+      <Link href="/" passHref>
+        <a>
+          <Image
+            src="/logo.png"
+            width={200}
+            height={40}
+            className={classes.img}
+            alt="logo image"
+          />
+        </a>
       </Link>
+
       <ul className={classes.navigationLink}>
         <Link href="/">Home</Link>
         <Link href="/movies">Movies</Link>

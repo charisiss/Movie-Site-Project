@@ -1,13 +1,12 @@
-import React, { useState } from "react";
-import { Button, Rating } from "@mui/material";
-import PlayArrow from "@mui/icons-material/PlayArrow";
-import Tooltip from "@mui/material/Tooltip";
-
-import classes from "./MovieInfo.module.css";
+import React from "react";
 import { useRouter } from "next/router";
-import { MovieType } from "../../types/MovieType";
+import { Button, Rating, Tooltip } from "@mui/material";
+import PlayArrow from "@mui/icons-material/PlayArrow";
 
-const MovieInfo = (props: MovieType) => {
+import { MovieType } from "../../../types/MovieType";
+import classes from "./MovieInfo.module.css";
+
+const MovieInfo = (props: { movie: MovieType; children: any }) => {
   const router = useRouter();
 
   return (
@@ -34,7 +33,7 @@ const MovieInfo = (props: MovieType) => {
             industry.
           </p>
           <Rating name="simple-controlled" value={4} readOnly />
-          <p>Actors: {props.movie.cast}</p>
+          <p>Actors: {props.movie.character}</p>
           <p>Year: {props.movie.year}</p>
           <br />
           <Button
@@ -50,7 +49,7 @@ const MovieInfo = (props: MovieType) => {
         </div>
       }
     >
-      {props.children}
+      {props.children /* test */}
     </Tooltip>
   );
 };
