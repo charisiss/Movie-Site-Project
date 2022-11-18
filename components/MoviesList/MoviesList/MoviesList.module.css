@@ -8,10 +8,16 @@
 }
 
 .btn {
-  background-color: gray;
+  background-color: #00b3ff;
+  border-style: solid;
+  border-width: 3px;
+  border-color: transparent;
 }
 
 .btn:hover {
-  background-color: rgb(180, 180, 180);
-  color: black;
+  border-style: solid;
+  border-width: 3px;
+  border-color: #00b3ff;
+  background-color: white;
+  color: #00b3ff;
 }

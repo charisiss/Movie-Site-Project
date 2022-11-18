@@ -44,7 +44,6 @@ const MoviesList: React.FC<moviesType> = (props) => {
               className={classes.btn}
               startIcon={<SortByAlpha />}
               onClick={() => HandleSort(sort)}
-              style={{ color: "black" }} // test
             >
               Sort ASC
             </Button>

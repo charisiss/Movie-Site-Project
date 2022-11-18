@@ -1,17 +1,17 @@
 import { useContext } from "react";
-import { Facebook, PinterestIn, Twitter, LinkedIn } from "@mui/icons-material";
+import { Facebook, Pinterest, Twitter, LinkedIn } from "@mui/icons-material";
 import { CircularProgress } from "@mui/material";
 
 import MoviesList from "../../components/MoviesList/MoviesList";
-import MovieContext from "../../store/Movies-Context";
-import Layout from "../../components/layout/Layout";
+import MovieContext from "../../store/MoviesContext";
+import Layout from "../../components/Layout/BaseLayout/Layout";
 import classes from "./MoviesPage.module.css";
 
 const HelloPage = () => {
   var ctx = useContext(MovieContext);
 
   return (
-    <Layout pageId="Movies">
+    <Layout pageId={"Movies"}>
       <div className={classes.main}>
         <div className={classes.subtitle}>
           <p>
@@ -24,7 +24,7 @@ const HelloPage = () => {
             <Facebook style={{ color: "#1877F2", cursor: "pointer" }} />
             <Twitter style={{ color: "#1DA1F2", cursor: "pointer" }} />
             <LinkedIn style={{ color: "#0A66C2", cursor: "pointer" }} />
-            <PinterestIn style={{ color: "#BD081C", cursor: "pointer" }} />
+            <Pinterest style={{ color: "#BD081C", cursor: "pointer" }} />
           </div>
         </div>
 

@@ -1,28 +1,20 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 
 import { MovieType } from "../types/MovieType";
 
 type contextMovieType = {
-  Movies: MovieType[];
+  movies: MovieType[];
   isLoading: boolean;
   getMovie: (props: string) => {};
 };
 
-type propsType = {
-  children: React.ReactNode;
-};
+const MovieContext = React.createContext<contextMovieType | undefined>(
+  undefined
+);
 
-const MovieContext = React.createContext<contextMovieType>({
-  Movies: [],
-  isLoading: true,
-  getMovie: (props: string) => {
-    return 0;
-  },
-});
-
-export const getMovie = async (props: string) => {
+export const getMovie = async (movieName: string) => {
   const response = await fetch(
-    `https://owen-wilson-wow-api.onrender.com/wows/random?movie=${props}`
+    `https://owen-wilson-wow-api.onrender.com/wows/random?movie=${movieName}`
   )
     .then((res) => res.json())
     .then((responseData) => {
@@ -37,12 +29,13 @@ export const getMovie = async (props: string) => {
         releaseDate: responseData[0].release_date,
         video: responseData[0].video,
       };
-      console.log(movie);
       return movie;
     });
 };
 
-export const MovieContextProvider: React.FC<propsType> = (props) => {
+export const MovieContextProvider: React.FC<{ children: React.ReactNode }> = (
+  props
+) => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [moviesList, setMoviesList] = useState<MovieType[]>([]);
 
@@ -77,7 +70,7 @@ export const MovieContextProvider: React.FC<propsType> = (props) => {
   return (
     <MovieContext.Provider
       value={{
-        Movies: moviesList,
+        movies: moviesList,
         isLoading: isLoading,
         getMovie: getMovie,
       }}
@@ -87,4 +80,11 @@ export const MovieContextProvider: React.FC<propsType> = (props) => {
   );
 };
 
-export default MovieContext;
+export const useGetMovieContext = () => {
+  const ctx = useContext(MovieContext);
+  if (!ctx) throw new Error("Movie Context not undefined");
+
+  return ctx;
+};
+
+export default MovieContextProvider;

@@ -1,15 +1,16 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
 import Image from "next/image";
 import PlayArrow from "@mui/icons-material/PlayArrow";
 import { Button, CircularProgress, Grid, Rating } from "@mui/material";
 
-import Layout from "../../components/Layout";
+import Layout from "../../components/Layout/BaseLayout";
 import Divider from "../../components/Divider/Divider";
-import MoviesList from "../../components/MoviesList/MoviesList/MoviesList";
-import CommentsList from "../../components/Comments";
+import MoviesList from "../../components/MoviesList/MoviesList";
+import CommentsList from "../../components/Comments/CommentsList";
 import MovieContext from "../../store/MoviesContext";
 import { CommentContextProvider } from "../../store/CommentsContext";
 import { MovieType } from "../../types/MovieType";
+import { useGetMovieContext } from "../../store/MoviesContext";
 
 import classes from "./SingleMoviePage.module.css";
 
@@ -27,9 +28,9 @@ export async function getServerSideProps(context: any) {
 const SingleMoviePage = (props: { item: MovieType[] }) => {
   const [displayVideo, setDisplayVideo] = useState(false);
 
-  const ctx = useContext(MovieContext);
+  const { movies, isLoading } = useGetMovieContext();
+
   const item = props.item[0];
-  console.log("item: ", typeof props);
 
   return (
     <Layout pageId={item.movie}>
@@ -109,12 +110,12 @@ const SingleMoviePage = (props: { item: MovieType[] }) => {
           </Grid>
           <Grid item xs>
             <Divider size="10" title="You may also like"></Divider>
-            {ctx.isLoading && (
+            {isLoading && (
               <div className={classes.loading}>
                 <CircularProgress color="inherit" />
               </div>
             )}
-            {<MoviesList movies={ctx.Movies} size={6} sort={false} />}
+            {<MoviesList movies={movies} size={6} sort={false} />}
           </Grid>
         </Grid>
       </main>

@@ -93,9 +93,7 @@ const SearchForm: React.FC<moviesType> = (props) => {
         <Button variant="contained" className={classes.searchButton}>
           <ArrowForward
             className={classes.searchArrowIcon}
-            onClick={() => {
-              console.log("click");
-            }}
+            onClick={() => {}}
           />
         </Button>
       </form>

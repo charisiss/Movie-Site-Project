@@ -7,7 +7,7 @@ import MainNavigation from "../MainNavigation/MainNavigation";
 import classes from "./Layout.module.css";
 
 type Props = {
-  children?: React.ReactNode;
+  children: React.ReactNode;
   pageId?: string | string[];
 };
 
@@ -66,7 +66,6 @@ const Layout: React.FC<Props> = (props) => {
       <div className={classes.main}>
         <MainNavigation
           openBackdrop={() => {
-            console.log("test");
             setOpenBackdrop(true);
           }}
         />
