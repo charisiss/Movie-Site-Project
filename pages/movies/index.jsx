@@ -1,14 +1,14 @@
-import { useContext } from "react";
 import { Facebook, Pinterest, Twitter, LinkedIn } from "@mui/icons-material";
 import { CircularProgress } from "@mui/material";
 
-import MoviesList from "../../components/MoviesList/MoviesList";
-import MovieContext from "../../store/MoviesContext";
-import Layout from "../../components/Layout/BaseLayout/Layout";
+import MoviesList from "components/MoviesList/MoviesList";
+import Layout from "components/Layout/BaseLayout/Layout";
+import MovieContext, { useGetMovieContext } from "../../store/MoviesContext";
+
 import classes from "./MoviesPage.module.css";
 
 const HelloPage = () => {
-  var ctx = useContext(MovieContext);
+  const { movies, isLoading } = useGetMovieContext();
 
   return (
     <Layout pageId={"Movies"}>
@@ -28,13 +28,13 @@ const HelloPage = () => {
           </div>
         </div>
 
-        {ctx.isLoading && (
+        {isLoading && (
           <div className={classes.loading}>
             <CircularProgress color="inherit" />
           </div>
         )}
 
-        {<MoviesList movies={ctx.Movies} width={ctx.width} sort={true} />}
+        {<MoviesList movies={movies} size={20} sort={true} />}
       </div>
     </Layout>
   );

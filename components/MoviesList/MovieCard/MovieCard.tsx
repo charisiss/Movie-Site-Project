@@ -13,9 +13,6 @@ type Props = {
 };
 
 const MovieCard: React.FC<Props> = (props) => {
-  const [anchor, setAnchor] = useState(null);
-  const [keepOpen, setKeepOpen] = useState(false);
-
   const router = useRouter();
 
   return (

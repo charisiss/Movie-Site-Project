@@ -3,12 +3,13 @@ import type { NextPage } from "next";
 import { Facebook, Pinterest, Twitter, LinkedIn } from "@mui/icons-material";
 import { CircularProgress } from "@mui/material";
 
-import Layout from "../components/Layout/BaseLayout";
-import classes from "./Home.module.css";
-import SearchForm from "../components/SearchForm/SearchForm";
-import MoviesList from "../components/MoviesList/MoviesList/MoviesList";
-import Divider from "../components/Divider/Divider";
+import Layout from "components/Layout/BaseLayout";
+import SearchForm from "components/SearchForm/SearchForm";
+import MoviesList from "components/MoviesList/MoviesList/MoviesList";
+import Divider from "components/Divider/Divider";
 import { useGetMovieContext } from "../store/MoviesContext";
+
+import classes from "./Home.module.css";
 
 const Home: NextPage = () => {
   const { movies, isLoading } = useGetMovieContext();
@@ -17,7 +18,7 @@ const Home: NextPage = () => {
     <Layout pageId="Movies">
       <>
         <div className={classes.pageTitleContainer}>
-          <h1>Find Movies, TV shows and more</h1>
+          <h1>Find Movies, TV shows and more</h1>\
           <SearchForm movies={movies} />
         </div>
 

@@ -7,11 +7,7 @@ import { Button, TextField } from "@mui/material";
 import { MovieType } from "../../types/MovieType";
 import classes from "./SearchForm.module.css";
 
-type moviesType = {
-  movies: MovieType[];
-};
-
-const SearchForm: React.FC<moviesType> = (props) => {
+const SearchForm = (movies: MovieType[]) => {
   const [moduleIsVisible, setModuleIsVisible] = useState<string>("none");
   const [inputText, setInputText] = useState<string>();
   const [searchResults, setsearchResults] = useState<MovieType[]>([]);
@@ -33,7 +29,7 @@ const SearchForm: React.FC<moviesType> = (props) => {
     setInputText(event.target.value);
     setsearchResults([]);
     if (inputText && inputText.length > 0) {
-      props.movies.filter((movie) => {
+      movies.filter((movie) => {
         const testMovie = movie.movie
           .toLowerCase()
           .match(inputText.toLowerCase());

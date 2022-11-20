@@ -1,16 +1,16 @@
 import { useState } from "react";
+import { useRouter } from "next/router";
 import Image from "next/image";
 import PlayArrow from "@mui/icons-material/PlayArrow";
 import { Button, CircularProgress, Grid, Rating } from "@mui/material";
 
-import Layout from "../../components/Layout/BaseLayout";
-import Divider from "../../components/Divider/Divider";
-import MoviesList from "../../components/MoviesList/MoviesList";
-import CommentsList from "../../components/Comments/CommentsList";
-import MovieContext from "../../store/MoviesContext";
+import Layout from "components/Layout/BaseLayout";
+import Divider from "components/Divider/Divider";
+import MoviesList from "components/MoviesList/MoviesList";
+import CommentsList from "components/Comments/CommentsList";
 import { CommentContextProvider } from "../../store/CommentsContext";
-import { MovieType } from "../../types/MovieType";
 import { useGetMovieContext } from "../../store/MoviesContext";
+import { MovieType } from "../../types/MovieType";
 
 import classes from "./SingleMoviePage.module.css";
 
@@ -27,6 +27,7 @@ export async function getServerSideProps(context: any) {
 
 const SingleMoviePage = (props: { item: MovieType[] }) => {
   const [displayVideo, setDisplayVideo] = useState(false);
+  const router = useRouter();
 
   const { movies, isLoading } = useGetMovieContext();
 
@@ -105,7 +106,7 @@ const SingleMoviePage = (props: { item: MovieType[] }) => {
           <Grid item xs>
             <Divider size="10" title="Comments"></Divider>
             <CommentContextProvider>
-              <CommentsList />
+              <CommentsList subId={router.query.subId as string} />
             </CommentContextProvider>
           </Grid>
           <Grid item xs>

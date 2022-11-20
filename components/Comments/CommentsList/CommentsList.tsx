@@ -1,16 +1,11 @@
 import React, { useEffect } from "react";
-import { useRouter } from "next/router";
 
 import AddComment from "../AddComment/AddComment";
 import Comment from "../Comment/Comment";
 import Divider from "../../Divider/Divider";
 import { useGetCommentContext } from "../../../store/CommentsContext";
 
-const CommentsList = () => {
-  const router = useRouter();
-
-  const subId = router.query.subId as string;
-
+const CommentsList = ({ subId }: { subId: string }) => {
   const { comments, updateComments } = useGetCommentContext();
 
   useEffect(() => {
