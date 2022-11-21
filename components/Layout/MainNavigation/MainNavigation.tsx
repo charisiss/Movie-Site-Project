@@ -35,7 +35,7 @@ const MainNavigation = (props: Props) => {
           }}
           className={classes.logButton}
         >
-          Login/Register
+          Login
         </Button>
       </ul>
     </div>

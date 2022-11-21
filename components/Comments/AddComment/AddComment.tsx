@@ -10,7 +10,7 @@ const AddComment = () => {
   const router = useRouter();
   const [open, setOpen] = React.useState(false);
 
-  const { addComment, updateComments } = useGetCommentContext();
+  const { addComment, getComments } = useGetCommentContext();
 
   const handleClose = (
     event: React.SyntheticEvent | Event,
@@ -36,7 +36,7 @@ const AddComment = () => {
         name: `Anonymous User ${Math.floor(Math.random() * 1000)}`,
       },
     });
-    updateComments(subId);
+    getComments(subId);
     setOpen(true);
     setTFValue("");
   };

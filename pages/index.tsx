@@ -45,7 +45,7 @@ const Home: NextPage = () => {
             </div>
           )}
 
-          {<MoviesList movies={movies} size={-1} sort={true} />}
+          {<MoviesList movies={movies} size={20} sort={true} />}
         </div>
       </>
     </Layout>

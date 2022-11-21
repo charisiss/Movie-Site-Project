@@ -22,7 +22,13 @@ const MoviesList: React.FC<moviesType> = (props) => {
 
   const HandleSort = (type: string) => {
     if (type === "pop") {
-      setMovies(props.movies.reverse());
+      console.log(movies);
+      setMovies(
+        movies!.sort(function () {
+          return 0.5 - Math.random();
+        })
+      );
+      console.log(movies);
     } else if (type === "asc") {
       setSort("dsc");
       setMovies(props.movies.sort((a, b) => (a.movie > b.movie ? 1 : -1)));
@@ -70,7 +76,7 @@ const MoviesList: React.FC<moviesType> = (props) => {
       >
         {movies &&
           movies.map((list, index) => {
-            if (movies.length !== -1 && movies.length <= index) return;
+            if (index >= props.size) return;
             return (
               <Grid item key={Math.random() * 1}>
                 <MovieCard movie={list} key={Math.random() * 1} />

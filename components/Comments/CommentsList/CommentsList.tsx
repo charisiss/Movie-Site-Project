@@ -6,10 +6,10 @@ import Divider from "../../Divider/Divider";
 import { useGetCommentContext } from "../../../store/CommentsContext";
 
 const CommentsList = ({ subId }: { subId: string }) => {
-  const { comments, updateComments } = useGetCommentContext();
+  const { comments, getComments } = useGetCommentContext();
 
   useEffect(() => {
-    updateComments(subId);
+    getComments(subId);
   }, [subId, comments]);
 
   return (

@@ -33,6 +33,7 @@
 .logButton:hover {
   color: #00b3ff !important;
   background-color: white;
+  border-color: white;
 }
 
 .logButtonIcon {
