@@ -1,0 +1,82 @@
+import React, { useState, useEffect, useContext } from "react";
+
+import { commentType } from "types/CommentType";
+
+const URL =
+  "https://totemic-chalice-352009-default-rtdb.europe-west1.firebasedatabase.app";
+
+type contextCommentType = {
+  comments: commentType[];
+  addComment: (props: { movie: string; comment: commentType }) => Promise<Response>;
+  fetchComments: (props: string) => Promise<commentType[]>;
+  getComments: (props: string) => {};
+};
+
+const CommentContext = React.createContext<contextCommentType | undefined>(
+  undefined
+);
+
+export const fetchComments = async (movieName: string) => {
+  const loadedComments: Array<commentType> = [];
+
+  return fetch(`${URL}/comments/${movieName}.json`)
+    .then((res) => res.json())
+    .then((responseData) => {
+      for (const key in responseData) {
+        loadedComments.push({
+          comment: responseData[key].comment,
+          name: responseData[key].name,
+          id: key,
+        });
+      }
+      return loadedComments;
+    });
+};
+
+export const addComment = async (props: {
+  movie: string;
+  comment: commentType;
+}) => {
+  return await fetch(`${URL}/comments/${props.movie}.json`, {
+    method: "POST",
+    body: JSON.stringify(props.comment),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+};
+
+export const CommentContextProvider: React.FC<{
+  children: JSX.Element | JSX.Element[];
+}> = (props) => {
+  const [commentsList, setCommentsList] = useState<commentType[]>([]);
+
+  const getComments = (movieName: string) => {
+    fetchComments(movieName).then((value) => {
+      setCommentsList(value.map((item) => item));
+    });
+    return {};
+  };
+
+  return (
+    <CommentContext.Provider
+      value={{
+        comments: commentsList,
+        addComment,
+        fetchComments,
+        getComments,
+      }}
+    >
+      {props.children}
+    </CommentContext.Provider>
+  );
+};
+
+export const useGetCommentContext = () => {
+  const ctx = useContext(CommentContext);
+  if (!ctx) throw new Error("Comment Context not undefined");
+
+  return ctx;
+};
+
+export default CommentContextProvider;
