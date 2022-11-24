@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { useRouter } from "next/router";
 import Image from "next/image";
 import PlayArrow from "@mui/icons-material/PlayArrow";
 import { Button, CircularProgress, Grid, Rating } from "@mui/material";
@@ -27,11 +26,11 @@ export async function getServerSideProps(context: any) {
 
 const SingleMoviePage = (props: { item: MovieType[] }) => {
   const [displayVideo, setDisplayVideo] = useState(false);
-  const router = useRouter();
 
   const { movies, isLoading } = useGetMovieContext();
 
   const item = props.item[0];
+  console.log("props.item[0]: ", props.item[0]);
 
   return (
     <Layout pageId={item.movie}>
@@ -106,7 +105,7 @@ const SingleMoviePage = (props: { item: MovieType[] }) => {
           <Grid item xs>
             <Divider size="10" title="Comments"></Divider>
             <CommentContextProvider>
-              <CommentsList subId={router.query.subId as string} />
+              <CommentsList subId={item.movie} />
             </CommentContextProvider>
           </Grid>
           <Grid item xs>
