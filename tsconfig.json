@@ -20,7 +20,6 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    "components",
     "babel.config.js"
   ],
   "exclude": ["node_modules"]

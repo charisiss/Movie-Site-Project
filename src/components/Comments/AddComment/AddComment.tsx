@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import { AccountCircle, Close as CloseIcon } from "@mui/icons-material";
 import { TextField, IconButton, Snackbar, Box } from "@mui/material";
 
-import { useGetCommentContext } from "store/CommentsContext";
+import { useGetCommentContext } from "../../../store/CommentsContext";
 
 const AddComment = () => {
   const [tfValue, setTFValue] = useState<string>("");

@@ -3,14 +3,14 @@ import React, { useEffect } from "react";
 import AddComment from "../AddComment";
 import Comment from "../Comment";
 import Divider from "components/Divider";
-import { useGetCommentContext } from "store/CommentsContext";
+import { useGetCommentContext } from "../../../store/CommentsContext";
 
 const CommentsList = ({ subId }: { subId: string }) => {
   const { comments, getComments } = useGetCommentContext();
 
   useEffect(() => {
     getComments(subId);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [subId]);
 
   return (
