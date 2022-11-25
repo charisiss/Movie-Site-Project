@@ -14,13 +14,15 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
-    "baseUrl": "src",
+    "baseUrl": "src"
   },
   "include": [
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    "babel.config.js"
+    "babel.config.js",
+    "jest-setup.js",
+    "jest.config.js"
   ],
   "exclude": ["node_modules"]
 }

@@ -27,13 +27,14 @@
 
 .logButton {
   color: white !important;
-  border-color: white;
+  background-color: #00b3ff;
+  border-color: white !important;
 }
 
 .logButton:hover {
   color: #00b3ff !important;
-  background-color: white;
-  border-color: white;
+  background-color: white !important;
+  border-color: white !important;
 }
 
 .logButtonIcon {

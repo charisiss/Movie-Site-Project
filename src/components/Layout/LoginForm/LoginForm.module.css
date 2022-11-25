@@ -1,0 +1,23 @@
+.modal {
+  height: 40vh;
+  padding: 30px 60px 30px 60px;
+  border-radius: 40px;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.modalTitle h2 {
+  color: black;
+}
+
+.modalField {
+  width: 40vh;
+}
+
+.modalLink a {
+  color: #00b3ff !important;
+  background-color: black !important;
+}

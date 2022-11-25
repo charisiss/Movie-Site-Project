@@ -1,6 +1,7 @@
 import { fireEvent, render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import { addComment, useGetCommentContext } from "store/CommentsContext";
+import userEvent from "@testing-library/user-event";
 
 import AddComment from "./AddComment";
 
@@ -11,15 +12,7 @@ const mockUseGetCommentContext = useGetCommentContext as jest.Mock;
 describe("<AddComment>", () => {
   beforeEach(() => {
     mockUseGetCommentContext.mockImplementation(() => ({
-      comments: [
-        {
-          comment: "mockComment",
-          name: "mockName",
-          id: "mockCommentId",
-        },
-      ],
       getComments: jest.fn(),
-      addComment: jest.fn(),
     }));
   });
 
@@ -27,12 +20,18 @@ describe("<AddComment>", () => {
     render(<AddComment />);
 
     expect(screen.getByText("Add a comment")).toBeVisible();
-    fireEvent.keyDown(screen.getByText("Add a comment"), {
-      key: "Enter",
-      code: "Enter",
-      charCode: 13,
-    });
+    const test = screen.getByRole("textbox");
 
-    expect(addComment).toHaveBeenCalled();
+    const field = screen.getByTestId("comment-input").querySelector("input");
+    expect(field).toBeInTheDocument();
+
+    fireEvent.change(field as Node, { target: { value: "google it" } });
+    expect(field!.value).toBe("google it");
+
+    // const input = screen.getByTestId("button");
+    // userEvent.click(input);
+
+    //expect(field!.value).toBe("");
+    // expect(submitHandler).toHaveBeenCalled();
   });
 });

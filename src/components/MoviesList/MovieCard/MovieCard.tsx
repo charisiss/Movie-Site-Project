@@ -38,6 +38,7 @@ const MovieCard: React.FC<Props> = (props) => {
                 className={classes.IconButton}
                 aria-label="play-arrow"
                 size="large"
+                data-testid="button"
                 onClick={() => {
                   router.push(`/movies/${props.movie.movie}`);
                 }}

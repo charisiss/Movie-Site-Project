@@ -6,7 +6,7 @@ import { Button } from "@mui/material";
 import classes from "./MainNavigation.module.css";
 
 type Props = {
-  openBackdrop: () => void;
+  openLogin: () => void;
 };
 
 const MainNavigation = (props: Props) => {
@@ -31,9 +31,10 @@ const MainNavigation = (props: Props) => {
           variant="outlined"
           startIcon={<PersonIcon className={classes.logButtonIcon} />}
           onClick={() => {
-            props.openBackdrop();
+            props.openLogin();
           }}
           className={classes.logButton}
+          data-testid="login-button"
         >
           Login
         </Button>

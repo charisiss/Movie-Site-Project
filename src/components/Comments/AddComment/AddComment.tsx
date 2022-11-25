@@ -23,7 +23,9 @@ const AddComment = () => {
     setOpen(false);
   };
 
-  const submitHandler = (event: React.FormEvent<HTMLFormElement>) => {
+  const submitHandler = (
+    event: React.FormEvent<HTMLFormElement | HTMLButtonElement>
+  ) => {
     event.preventDefault();
 
     const subId = router.query.subId as string;
@@ -54,7 +56,7 @@ const AddComment = () => {
   );
 
   return (
-    <form onSubmit={submitHandler}>
+    <form onSubmit={submitHandler} data-testid="comment-input-form">
       <Box>
         <Box sx={{ display: "flex", alignItems: "flex-center" }}>
           <AccountCircle
@@ -62,6 +64,7 @@ const AddComment = () => {
           />
           <TextField
             id="input-with-sx"
+            data-testid="comment-input"
             label="Add a comment"
             variant="standard"
             size="medium"
@@ -69,6 +72,7 @@ const AddComment = () => {
             value={tfValue}
             onChange={(newValue) => setTFValue(newValue.target.value)}
           />
+          {/* <button onClick={submitHandler}>test</button> */}
         </Box>
       </Box>
 

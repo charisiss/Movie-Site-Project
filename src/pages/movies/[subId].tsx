@@ -14,7 +14,7 @@ import { MovieType } from "types/MovieType";
 import classes from "./SingleMoviePage.module.css";
 
 export async function getServerSideProps(context: any) {
-  const subID = context.params.subId;
+  const subID = await context.params.subId;
   const response = await fetch(
     `https://owen-wilson-wow-api.onrender.com/wows/random?movie=${subID}`
   );
@@ -30,7 +30,6 @@ const SingleMoviePage = (props: { item: MovieType[] }) => {
   const { movies, isLoading } = useGetMovieContext();
 
   const item = props.item[0];
-  console.log("props.item[0]: ", props.item[0]);
 
   return (
     <Layout pageId={item.movie}>
