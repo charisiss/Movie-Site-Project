@@ -14,12 +14,12 @@
   margin-left: 2%;
   height: 55px;
   width: 5vw;
-  background-color: white;
-  color: black;
+  background-color: white !important;
+  color: black !important;
 }
 .searchButton:hover {
-  background-color: #00b3ff;
-  color: white;
+  background-color: #00b3ff !important;
+  color: white !important;
 }
 
 .searchInputText {
