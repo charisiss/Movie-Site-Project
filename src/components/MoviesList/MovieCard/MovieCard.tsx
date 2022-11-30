@@ -9,52 +9,46 @@ import { MovieType } from "types/MovieType";
 
 import classes from "./MovieCard.module.css";
 
-type Props = {
-  movie: MovieType;
-};
-
-const MovieCard: React.FC<Props> = (props) => {
+const MovieCard = ({ movie }: { movie: MovieType }) => {
   const router = useRouter();
 
   return (
-    <React.Fragment>
-      <MovieInfo movie={props.movie}>
-        <div
-          className={classes.card}
-          onClick={() => {
-            router.push(`/movies/${props.movie.movie}`);
-          }}
-        >
-          <div className={classes.cardImage}>
-            <Image
-              src={props.movie.poster}
-              height="290"
-              width={200}
-              className={classes.img}
-              alt="movieImage"
-            />
-            <div className={classes.ImageBackdrop}>
-              <IconButton
-                className={classes.IconButton}
-                aria-label="play-arrow"
-                size="large"
-                data-testid="button"
-                onClick={() => {
-                  router.push(`/movies/${props.movie.movie}`);
-                }}
-              >
-                <PlayArrow fontSize="inherit" />
-              </IconButton>
-            </div>
+    <MovieInfo movie={movie}>
+      <div
+        className={classes.card}
+        onClick={() => {
+          router.push(`/movies/${movie.movie}`);
+        }}
+      >
+        <div className={classes.cardImage}>
+          <Image
+            src={movie.poster}
+            height="290"
+            width={200}
+            className={classes.img}
+            alt="movieCardImage"
+          />
+          <div className={classes.ImageBackdrop}>
+            <IconButton
+              className={classes.IconButton}
+              aria-label="play-arrow"
+              size="large"
+              data-testid="iconButton"
+              onClick={() => {
+                router.push(`/movies/${movie.movie}`);
+              }}
+            >
+              <PlayArrow fontSize="inherit" data-testid="playArrow" />
+            </IconButton>
           </div>
-
-          <h4 className={classes.cardTitle}> {props.movie.movie}</h4>
-          <p className={classes.cardDescription}>
-            {props.movie.year} · {props.movie.movie_duration.slice(0, -3)}h
-          </p>
         </div>
-      </MovieInfo>
-    </React.Fragment>
+
+        <h4 className={classes.cardTitle}> {movie.movie}</h4>
+        <p className={classes.cardDescription}>
+          {movie.year} · {movie.movie_duration.slice(0, -3)}h
+        </p>
+      </div>
+    </MovieInfo>
   );
 };
 

@@ -1,7 +1,6 @@
 import { fireEvent, render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
-import { addComment, useGetCommentContext } from "store/CommentsContext";
-import userEvent from "@testing-library/user-event";
+import { useGetCommentContext } from "store/CommentsContext";
 
 import AddComment from "./AddComment";
 

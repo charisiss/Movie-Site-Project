@@ -4,7 +4,7 @@ import userEvent from "@testing-library/user-event";
 
 import MainNaviation from "./MainNavigation";
 
-describe("<LoginForm>", () => {
+describe("<MainNavigation>", () => {
   const demoProps = {
     openLogin: jest.fn(),
   };
@@ -16,9 +16,5 @@ describe("<LoginForm>", () => {
     expect(screen.getByText("Home")).toBeInTheDocument();
     expect(screen.getByText("Movies")).toBeInTheDocument();
     expect(screen.getByText("Login")).toBeInTheDocument();
-  });
-
-  test("idk", () => {
-    render(<MainNaviation {...demoProps} />);
   });
 });

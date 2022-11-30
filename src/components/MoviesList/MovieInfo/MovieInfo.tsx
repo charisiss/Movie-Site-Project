@@ -7,7 +7,13 @@ import { MovieType } from "types/MovieType";
 
 import classes from "./MovieInfo.module.css";
 
-const MovieInfo = (props: { movie: MovieType; children: React.ReactElement }) => {
+const MovieInfo = ({
+  movie,
+  children,
+}: {
+  movie: MovieType;
+  children: React.ReactElement;
+}) => {
   const router = useRouter();
 
   return (
@@ -26,23 +32,24 @@ const MovieInfo = (props: { movie: MovieType; children: React.ReactElement }) =>
           },
         },
       }}
+      data-testid="tooltip"
       title={
         <div className={classes.popper}>
-          <h4>{props.movie.movie}</h4>
+          <h4>{movie.movie}</h4>
           <p>
             Lorem Ipsum is simply dummy text of the printing and typesetting
             industry.
           </p>
           <Rating name="simple-controlled" value={4} readOnly />
-          <p>Actors: {props.movie.character}</p>
-          <p>Year: {props.movie.year}</p>
+          <p>Actors: {movie.character}</p>
+          <p>Year: {movie.year}</p>
           <br />
           <Button
             variant="contained"
             startIcon={<PlayArrow />}
             className={classes.popperButton}
             onClick={() => {
-              router.push(`/movies/${props.movie.movie}`);
+              router.push(`/movies/${movie.movie}`);
             }}
           >
             Watch Now
@@ -50,7 +57,7 @@ const MovieInfo = (props: { movie: MovieType; children: React.ReactElement }) =>
         </div>
       }
     >
-      {props.children /* test */}
+      {children}
     </Tooltip>
   );
 };

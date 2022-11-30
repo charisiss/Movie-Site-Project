@@ -28,7 +28,6 @@ const MoviesList: React.FC<moviesType> = (props) => {
           return 0.5 - Math.random();
         })
       );
-      console.log(movies);
     } else if (type === "asc") {
       setSort("dsc");
       setMovies(props.movies.sort((a, b) => (a.movie > b.movie ? 1 : -1)));
@@ -79,7 +78,11 @@ const MoviesList: React.FC<moviesType> = (props) => {
             if (index >= props.size) return;
             return (
               <Grid item key={Math.random() * 1}>
-                <MovieCard movie={list} key={Math.random() * 1} />
+                <MovieCard
+                  data-testid="movie-card"
+                  movie={list}
+                  key={Math.random() * 1}
+                />
               </Grid>
             );
           })}

@@ -8,7 +8,7 @@ import { MovieType } from "types/MovieType";
 
 import classes from "./SearchForm.module.css";
 
-const SearchForm = ({movies} : {movies: MovieType[]}) => {
+const SearchForm = ({ movies }: { movies: MovieType[] }) => {
   const [moduleIsVisible, setModuleIsVisible] = useState<string>("none");
   const [inputText, setInputText] = useState<string>();
   const [searchResults, setsearchResults] = useState<MovieType[]>([]);
@@ -53,6 +53,7 @@ const SearchForm = ({movies} : {movies: MovieType[]}) => {
           variant="outlined"
           placeholder="Enter keywords..."
           id="fullWidth"
+          data-testid="search-form"
           className={classes.searchInputText}
           InputProps={{
             startAdornment: <Search style={{ marginRight: "10px" }} />,
