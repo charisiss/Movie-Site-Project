@@ -1,13 +1,11 @@
 import { render, screen } from "@testing-library/react";
 
 import { useGetMovieContext } from "store/MoviesContext";
-import { useGetCommentContext } from "store/CommentsContext";
 import MoviesList from "components/MoviesList/MoviesList";
-import CommentsList from "components/Comments/CommentsList";
-import SingleMoviePage from "./[subId]";
+import MoviePage from "./index";
 
 const demoProps = {
-  item: [
+  movies: [
     {
       character: "Lighting McQueen",
       director: "Brian Fee",
@@ -46,14 +44,11 @@ const demoProps = {
 };
 
 jest.mock("store/MoviesContext");
-jest.mock("store/CommentsContext");
 jest.mock("components/MoviesList/MoviesList");
-jest.mock("components/Comments/CommentsList");
 
 const mockUseGetMovieContext = useGetMovieContext as jest.Mock;
-const mockUseGetCommentsContext = useGetCommentContext as jest.Mock;
 
-describe("Single Movie Page", () => {
+describe("Movies Page", () => {
   beforeEach(() => {
     mockUseGetMovieContext.mockImplementation(() => ({
       movies: [
@@ -77,25 +72,14 @@ describe("Single Movie Page", () => {
       ],
       isLoading: false,
     }));
-    mockUseGetCommentsContext.mockImplementation(() => {
-      comments: [];
-    });
   });
 
-  test("Checks if movie details are visible at screen", () => {
-    render(<SingleMoviePage {...demoProps} />);
+  test("Checks if elements are visible at the screen", () => {
+    render(<MoviePage />);
 
-    expect(screen.getByAltText("movieImage")).toBeInTheDocument();
-    expect(screen.getByText("Brian Fee")).toBeInTheDocument();
-    expect(screen.getByText("Lighting McQueen")).toBeInTheDocument();
-    expect(screen.getByText("2017-05-23")).toBeInTheDocument();
-    expect(screen.getByText("Lorem Ipsum", { exact: false }));
-  });
-  test("Checks if other elements are visible at screen", () => {
-    render(<SingleMoviePage {...demoProps} />);
-
-    expect(screen.getByText("Watch Trailer")).toBeInTheDocument();
-    //expect(CommentsList).toHaveBeenCalled();
+    expect(
+      screen.getByText("CSMovies, Watch Movie Trailers", { exact: false })
+    ).toBeInTheDocument();
     expect(MoviesList).toHaveBeenCalled();
   });
 });

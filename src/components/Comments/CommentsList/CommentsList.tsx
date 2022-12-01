@@ -5,7 +5,7 @@ import Comment from "../Comment";
 import Divider from "components/Divider";
 import { useGetCommentContext } from "../../../store/CommentsContext";
 
-const CommentsList = ({ subId }: { subId: string }) => {
+const CommentsList: React.FC<{ subId: string }> = ({ subId }) => {
   const { comments, getComments } = useGetCommentContext();
 
   useEffect(() => {

@@ -8,7 +8,7 @@ import { MovieType } from "types/MovieType";
 
 import classes from "./SearchForm.module.css";
 
-const SearchForm = ({ movies }: { movies: MovieType[] }) => {
+const SearchForm: React.FC<{ movies: MovieType[] }> = ({ movies }) => {
   const [moduleIsVisible, setModuleIsVisible] = useState<string>("none");
   const [inputText, setInputText] = useState<string>();
   const [searchResults, setsearchResults] = useState<MovieType[]>([]);

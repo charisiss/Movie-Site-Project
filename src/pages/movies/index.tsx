@@ -7,7 +7,7 @@ import MovieContext, { useGetMovieContext } from "store/MoviesContext";
 
 import classes from "./MoviesPage.module.css";
 
-const HelloPage = () => {
+const MoviesPage = () => {
   const { movies, isLoading } = useGetMovieContext();
 
   return (
@@ -40,4 +40,4 @@ const HelloPage = () => {
   );
 };
 
-export default HelloPage;
+export default MoviesPage;
