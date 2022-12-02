@@ -1,9 +1,12 @@
 import { render, screen } from "@testing-library/react";
-import Image from "next/image";
-import IconButton from "@mui/material/IconButton";
-import PlayArrow from "@mui/icons-material/PlayArrow";
+import { useRouter } from "next/router";
 
 import MovieCard from "./MovieCard";
+
+jest.mock("next/image");
+jest.mock("next/router");
+
+const mockRouter = useRouter as jest.Mock;
 
 describe("<MovieCard>", () => {
   const demoProps = {
@@ -25,6 +28,11 @@ describe("<MovieCard>", () => {
       year: 2017,
     },
   };
+  beforeEach(() => {
+    mockRouter.mockImplementation(() => ({
+      push: jest.fn(),
+    }));
+  });
 
   test("Checks if the basic layout called", () => {
     render(<MovieCard {...demoProps} />);
@@ -37,6 +45,9 @@ describe("<MovieCard>", () => {
   test("Checks if the card title and description is visible", () => {
     render(<MovieCard {...demoProps} />);
 
+    screen.getByTestId("iconButton").click();
+
+    // expect(router.push).toHaveBeenCalled();
     expect(screen.getByText("Cars 3")).toBeVisible();
     expect(screen.getByText("2017 · 01:42h")).toBeVisible();
   });
