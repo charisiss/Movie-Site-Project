@@ -18,6 +18,7 @@ It is a simple movie website like IMDb, that you can watch trailers of some movi
     - [Responsive Styles](#responsive-styles)
     - [Project Structure](#project-structure)
     - [Environmental Variables](#environmental-variables)
+    - [Questions Managment](#questions-managment)
 
 ## Installation and Running
 
@@ -81,3 +82,7 @@ State is kept local and low. There is no global state as it wasn't necessary. Sc
 ### Fetching API data
 
 I found [Owen Wilson wow API](https://owen-wilson-wow-api.onrender.com/). I decided to use it here for the first time. It's a good API but I had a lot of problems with server respond some times.
+
+### Questions Managment
+
+I used [Open Ai Chat Bot](https://chat.openai.com/chat) to ask a lot of question about React, also that helped me out with some errors that I had.
