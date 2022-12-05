@@ -26,10 +26,14 @@ describe("<CommentsList>", () => {
     }));
   });
 
-  test("Testing a standar Comment List to check if it has comments, also if components are", () => {
+  test("Testing a standar comment list to check if it has comments", () => {
     const screen = render(<CommentList subId="The Haunting" />);
 
     expect(screen.getByText("1 Comments")).toBeVisible();
+  });
+  test("Checks if components renders", () => {
+    const screen = render(<CommentList subId="The Haunting" />);
+
     expect(AddComment).toHaveBeenCalled();
     expect(Comment).toHaveBeenCalled();
   });

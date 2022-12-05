@@ -1,6 +1,5 @@
 import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
-import userEvent from "@testing-library/user-event";
 
 import MainNaviation from "./MainNavigation";
 
@@ -9,12 +8,19 @@ describe("<MainNavigation>", () => {
     openLogin: jest.fn(),
   };
 
-  test("Checks if the header elements are visible", () => {
+  test("Checks if the header elements are visible, also check the redirection links", () => {
     render(<MainNaviation {...demoProps} />);
 
     expect(screen.getByAltText("Logo-Image")).toBeInTheDocument();
-    expect(screen.getByText("Home")).toBeInTheDocument();
-    expect(screen.getByText("Movies")).toBeInTheDocument();
+
+    const homeBtn = screen.getByText("Home");
+    expect(homeBtn).toBeInTheDocument();
+    expect(homeBtn).toHaveAttribute("href", "/");
+
+    const moviesBtn = screen.getByText("Movies");
+    expect(moviesBtn).toBeInTheDocument();
+    expect(moviesBtn).toHaveAttribute("href", "/movies");
+
     expect(screen.getByText("Login")).toBeInTheDocument();
   });
 });

@@ -47,10 +47,11 @@ describe("<SearchForm>", () => {
     render(<SearchForm {...demoProps} />);
 
     act(async () => {
-      fireEvent.change(await screen.getByPlaceholderText("Enter keywords..."), {
+      const field = await screen.getByPlaceholderText("Enter keywords...");
+      fireEvent.change(field, {
         target: { value: "Cars" },
       });
-      fireEvent.submit(await screen.getByPlaceholderText("Enter keywords..."));
+      fireEvent.focus(field);
     });
     expect(await screen.getByText("Cars"));
   });

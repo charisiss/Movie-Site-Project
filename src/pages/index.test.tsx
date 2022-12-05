@@ -4,6 +4,7 @@ import { useGetMovieContext } from "store/MoviesContext";
 import MoviesList from "components/MoviesList/MoviesList";
 import Divider from "components/Divider";
 import Home from "./index";
+import SearchForm from "components/SearchForm";
 
 jest.mock("store/MoviesContext");
 jest.mock("components/MoviesList/MoviesList");
@@ -47,10 +48,9 @@ describe("Index Page", () => {
     expect(
       screen.getByText("CSMovies, Watch Movie Trailers", { exact: false })
     ).toBeInTheDocument();
-    expect(
-      screen.getByPlaceholderText("Enter keywords...")
-    ).toBeInTheDocument();
-    expect(Divider).toHaveBeenCalled();
-    expect(MoviesList).toHaveBeenCalled();
+
+    expect(SearchForm).toBeDefined();
+    expect(Divider).toBeDefined();
+    expect(MoviesList).toBeDefined();
   });
 });

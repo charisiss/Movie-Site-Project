@@ -57,23 +57,21 @@ const AddComment = () => {
 
   return (
     <form onSubmit={submitHandler} data-testid="comment-input-form">
-      <Box>
-        <Box sx={{ display: "flex", alignItems: "flex-center" }}>
-          <AccountCircle
-            sx={{ color: "action.active", mr: 1.2, my: 0.7, fontSize: 50 }}
-          />
-          <TextField
-            id="input-with-sx"
-            data-testid="comment-input"
-            label="Add a comment"
-            variant="standard"
-            size="medium"
-            fullWidth
-            value={tfValue}
-            onChange={(newValue) => setTFValue(newValue.target.value)}
-          />
-          {/* <button onClick={submitHandler}>test</button> */}
-        </Box>
+      <Box sx={{ display: "flex", alignItems: "flex-center" }}>
+        <AccountCircle
+          sx={{ color: "action.active", mr: 1.2, my: 0.7, fontSize: 50 }}
+        />
+        <TextField
+          id="input-with-sx"
+          data-testid="comment-input"
+          label="Add a comment"
+          variant="standard"
+          size="medium"
+          fullWidth
+          value={tfValue}
+          onChange={(newValue) => setTFValue(newValue.target.value)}
+        />
+        {/* <button onClick={submitHandler}>test</button> */}
       </Box>
 
       <Snackbar

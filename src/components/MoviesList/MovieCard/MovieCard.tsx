@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import IconButton from "@mui/material/IconButton";

@@ -1,12 +1,12 @@
-import { render, screen } from "@testing-library/react";
+import { fireEvent, waitFor, render, screen } from "@testing-library/react";
 import { useRouter } from "next/router";
+import { mount } from "enzyme";
 
 import MovieCard from "./MovieCard";
 
-jest.mock("next/image");
-jest.mock("next/router");
-
-const mockRouter = useRouter as jest.Mock;
+jest.mock("next/router", () => ({
+  useRouter: jest.fn(),
+}));
 
 describe("<MovieCard>", () => {
   const demoProps = {
@@ -28,27 +28,48 @@ describe("<MovieCard>", () => {
       year: 2017,
     },
   };
-  beforeEach(() => {
-    mockRouter.mockImplementation(() => ({
-      push: jest.fn(),
-    }));
-  });
 
   test("Checks if the basic layout called", () => {
     render(<MovieCard {...demoProps} />);
 
-    expect(screen.getByAltText("movieCardImage")).toBeInTheDocument();
     expect(screen.getByTestId("iconButton")).toBeInTheDocument();
     expect(screen.getByTestId("playArrow")).toBeInTheDocument();
+    expect(screen.getByAltText("movieCardImage")).toBeInTheDocument();
   });
 
   test("Checks if the card title and description is visible", () => {
     render(<MovieCard {...demoProps} />);
 
-    screen.getByTestId("iconButton").click();
-
-    // expect(router.push).toHaveBeenCalled();
     expect(screen.getByText("Cars 3")).toBeVisible();
     expect(screen.getByText("2017 · 01:42h")).toBeVisible();
+  });
+
+  // test("Checks if the button is redirecting", async () => {
+  //   render(<MovieCard {...demoProps} />);
+
+  //   // jest.spyOn(router, "push").mockImplementation(mockPush);
+  //   const router = { push: jest.fn() };
+
+  //   fireEvent.click(screen.getByTestId("iconButton"));
+  //   expect(router.push).toHaveBeenCalledWith("/movies/Cars%203");
+  //   // expect(mockPush).toHaveBeenCalledWith("/movies/Cars%203")
+  //   // await waitFor(() =>
+  //   //   expect(window.location.pathname).toBe("/movies/Cars%203")
+  //   // );
+  // });
+
+  it("should call router.push when the button is clicked", () => {
+    const router = { push: jest.fn() };
+    useRouter.mockImplementation(() => router);
+
+    const wrapper = mount(
+      <Router>
+        <MovieCard {...demoProps} />
+      </Router>
+    );
+
+    wrapper.find("button").simulate("click");
+
+    expect(router.push).toHaveBeenCalledWith("/my-page");
   });
 });
