@@ -14,12 +14,7 @@ const MovieCard = ({ movie }: { movie: MovieType }) => {
 
   return (
     <MovieInfo movie={movie}>
-      <div
-        className={classes.card}
-        onClick={() => {
-          router.push(`/movies/${movie.movie}`);
-        }}
-      >
+      <div className={classes.card} data-testid="movie-card">
         <div className={classes.cardImage}>
           <Image
             src={movie.poster}
@@ -33,7 +28,7 @@ const MovieCard = ({ movie }: { movie: MovieType }) => {
               className={classes.IconButton}
               aria-label="play-arrow"
               size="large"
-              data-testid="iconButton"
+              data-testid="play-arrow"
               onClick={() => {
                 router.push(`/movies/${movie.movie}`);
               }}
@@ -43,7 +38,7 @@ const MovieCard = ({ movie }: { movie: MovieType }) => {
           </div>
         </div>
 
-        <h4 className={classes.cardTitle}> {movie.movie}</h4>
+        <h4 className={classes.cardTitle}>{movie.movie}</h4>
         <p className={classes.cardDescription}>
           {movie.year} · {movie.movie_duration.slice(0, -3)}h
         </p>

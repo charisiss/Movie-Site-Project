@@ -1,4 +1,4 @@
-import { fireEvent, render, screen } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import { act } from "react-dom/test-utils";
 
 import MovieList from "./MoviesList";
@@ -43,14 +43,16 @@ describe("<MovieList>", () => {
     ],
   };
 
-  test("Checks if movies cards are displaying, checks the buttons also", () => {
+  test("Checks if demo movies cards are visible, also checks button elements", () => {
     render(<MovieList size={2} sort={true} {...demoProps} />);
 
     expect(screen.getByText("Sort ASC")).toBeInTheDocument();
     expect(screen.getByText("Popular")).toBeInTheDocument();
+
     expect(screen.getByText("Cars 3")).toBeInTheDocument();
     expect(screen.getByText("Cars 2")).toBeInTheDocument();
   });
+
   test("Checks if the elements are not visible, because of props", () => {
     render(<MovieList size={1} sort={false} {...demoProps} />);
 
@@ -60,13 +62,16 @@ describe("<MovieList>", () => {
 
     expect(screen.getByText("Cars 3")).toBeInTheDocument();
   });
-  // test("Checks sort button", async () => {
-  //   render(<MovieList size={2} sort={true} {...demoProps} />);
 
-  //   act(() => screen.getByText("Sort ASC").click());
-  //   expect(screen.getByTestId("movie-card")).toBeInTheDocument();
+  test("Checks sort button", async () => {
+    render(<MovieList size={2} sort={true} {...demoProps} />);
 
-  //   // const stories = await screen.queryAllByTestId("movie-card");
-  //   // expect(stories).toHaveLength(2);
-  // });
+    act(() => screen.getByText("Sort ASC").click());
+
+    const allItems = await screen.queryAllByTestId("tooltip");
+    expect(allItems).toHaveLength(2);
+    const firstItem = allItems.at(1);
+
+    // expect(firstItem).toBe("Cars 3"); Trying some tests
+  });
 });
