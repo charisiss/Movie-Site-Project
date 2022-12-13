@@ -3,7 +3,7 @@ import { render, screen } from "@testing-library/react";
 import { useGetMovieContext } from "store/MoviesContext";
 import MoviesList from "components/MoviesList/MoviesList";
 import Divider from "components/Divider";
-import Home from "./index";
+import Home from "pages";
 import SearchForm from "components/SearchForm";
 
 jest.mock("store/MoviesContext");

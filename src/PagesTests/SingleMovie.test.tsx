@@ -3,8 +3,7 @@ import { render, screen } from "@testing-library/react";
 import { useGetMovieContext } from "store/MoviesContext";
 import { useGetCommentContext } from "store/CommentsContext";
 import MoviesList from "components/MoviesList/MoviesList";
-import CommentsList from "components/Comments/CommentsList";
-import SingleMoviePage from "./[subId]";
+import SingleMoviePage from "pages/movies/[subId]";
 
 const demoProps = {
   item: [
@@ -48,7 +47,6 @@ const demoProps = {
 jest.mock("store/MoviesContext");
 jest.mock("store/CommentsContext");
 jest.mock("components/MoviesList/MoviesList");
-jest.mock("components/Comments/CommentsList");
 
 const mockUseGetMovieContext = useGetMovieContext as jest.Mock;
 const mockUseGetCommentsContext = useGetCommentContext as jest.Mock;

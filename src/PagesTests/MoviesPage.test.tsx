@@ -2,7 +2,7 @@ import { render, screen } from "@testing-library/react";
 
 import { useGetMovieContext } from "store/MoviesContext";
 import MoviesList from "components/MoviesList/MoviesList";
-import MoviePage from "./index";
+import MoviePage from "pages/movies";
 
 const demoProps = {
   movies: [
