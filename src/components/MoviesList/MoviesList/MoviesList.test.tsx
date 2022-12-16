@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { getByTitle, render, screen } from "@testing-library/react";
 import { act } from "react-dom/test-utils";
 
 import MovieList from "./MoviesList";
@@ -68,10 +68,10 @@ describe("<MovieList>", () => {
 
     act(() => screen.getByText("Sort ASC").click());
 
-    const allItems = await screen.queryAllByTestId("tooltip");
-    expect(allItems).toHaveLength(2);
-    const firstItem = allItems.at(1);
-
-    // expect(firstItem).toBe("Cars 3"); Trying some tests
+    expect(screen.getByText("Cars 3")).toBeInTheDocument();
+    expect(screen.getByText("Cars 2")).toBeInTheDocument();
+    // expect(screen.getByText("Cars 2").previousSibling).toEqual(
+    //   screen.getByText("Cars 3")
+    // );
   });
 });
