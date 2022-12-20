@@ -1,6 +1,6 @@
 ## Movie Site Project
 
-This is a react app that I created to exercice.
+This is a React app that I created to excercise.
 It is a simple movie website like IMDb, that you can watch trailers of some movies and learn more about them.
 
 ## Contents
