@@ -32,10 +32,6 @@ This will install all dependencies for you. From there run:
 
 ```shell
 npm run dev
-
-# or
-
-npm run dev
 ```
 
 To get the app up and running. Your browser should open up to the app, otherwise check the console
@@ -65,11 +61,11 @@ This is a very brief explanation of the most important decisions that were made.
 
 ### Testing
 
-99% of all tests are written with `react-testing-library`. The other 1% with Enzyme. Snapshots were purposely avoided.
+100% of all tests are written with `react-testing-library`.
 
 Tests were written in such a way so they can serve as documentation for the components that are being tested. It is encouraged to read them in order to get a better understanding of the components themselves.
 
-100% test coverage is achieved.
+90% test coverage is achieved.
 
 ### State Managment
 
