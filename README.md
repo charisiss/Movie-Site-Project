@@ -73,7 +73,7 @@ State is kept local and low. There is no global state as it wasn't necessary. Sc
 
 ### Styling
 
-`Module CSS` were used to style all components. A basic layout is created. Look for the Layout.tsx to get a better idea of the Layout structure.
+`CSS Modules` were used to style all components. A basic layout is created. Look for the Layout.tsx to get a better idea of the Layout structure.
 
 ### Fetching API data
 
