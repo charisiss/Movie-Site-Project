@@ -27,10 +27,7 @@ export const getStaticProps = async (context: any) => {
   let response = {};
   const res = await fetch(
     `https://owen-wilson-wow-api.onrender.com/wows/random?movie=${subID}`
-  ).catch(() => {
-    error = true;
-  });
-
+  );
   response = await res.json();
 
   if (error) throw new Error();
@@ -42,17 +39,17 @@ export const getStaticProps = async (context: any) => {
   };
 };
 
-const SingleMoviePage = (props: { item: MovieType[] }) => {
+const SingleMoviePage = (props: { response: MovieType[] }) => {
   const [displayVideo, setDisplayVideo] = useState(false);
   const { movies, isLoading } = useGetMovieContext();
 
   const router = useRouter();
 
   if (router.isFallback) {
+    console.log("test");
     return <CircularProgress />;
   }
 
-  console.log(props);
   const item = props.response[0];
 
   return (
