@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useRouter } from "next/router";
 import Image from "next/image";
 import PlayArrow from "@mui/icons-material/PlayArrow";
 import { Button, CircularProgress, Grid, Rating } from "@mui/material";
@@ -13,23 +14,43 @@ import { MovieType } from "types/MovieType";
 
 import classes from "./SingleMoviePage.module.css";
 
-export async function getServerSideProps(context: any) {
-  const subID = await context.params.subId;
-  const response = await fetch(
-    `https://owen-wilson-wow-api.onrender.com/wows/random?movie=${subID}`
-  );
-  const res = await response.json();
-  return {
-    props: { item: res },
-  };
+export async function getStaticPaths() {
+  return { paths: [], fallback: true };
 }
 
-const SingleMoviePage = (props: { item: MovieType[] }) => {
-  const [displayVideo, setDisplayVideo] = useState(false);
+export const getStaticProps = async (context: any) => {
+  const subID = await context.params.subId;
 
+  if (!subID) return { notFound: true };
+
+  let error = false;
+  let response = {};
+  const res = await fetch(
+    `https://owen-wilson-wow-api.onrender.com/wows/random?movie=${subID}`
+  );
+  response = await res.json();
+
+  if (error) throw new Error();
+
+  return {
+    props: {
+      response,
+    },
+  };
+};
+
+const SingleMoviePage = (props: { response: MovieType[] }) => {
+  const [displayVideo, setDisplayVideo] = useState(false);
   const { movies, isLoading } = useGetMovieContext();
 
-  const item = props.item[0];
+  const router = useRouter();
+
+  if (router.isFallback) {
+    console.log("test");
+    return <CircularProgress />;
+  }
+
+  const item = props.response[0];
 
   return (
     <Layout pageId={item.movie}>
