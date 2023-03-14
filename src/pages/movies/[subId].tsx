@@ -14,25 +14,6 @@ import { MovieType } from "types/MovieType";
 
 import classes from "./SingleMoviePage.module.css";
 
-export async function getServerSideProps(context: any) {
-  const subID = context.params.subId;
-
-  if (!subID) {
-    return { notFound: true };
-  }
-
-  const res = await fetch(
-    `https://owen-wilson-wow-api.onrender.com/wows/random?movie=${subID}`
-  );
-  const response = await res.json();
-
-  return {
-    props: {
-      response,
-    },
-  };
-}
-
 const SingleMoviePage = (props: { response: MovieType[] }) => {
   const [displayVideo, setDisplayVideo] = useState(false);
   const { movies, isLoading } = useGetMovieContext();
@@ -137,4 +118,22 @@ const SingleMoviePage = (props: { response: MovieType[] }) => {
   );
 };
 
+export async function getServerSideProps(context: any) {
+  const subID = context.params.subId;
+
+  if (!subID) {
+    return { notFound: true };
+  }
+
+  const res = await fetch(
+    `https://owen-wilson-wow-api.onrender.com/wows/random?movie=${subID}`
+  );
+  const response = await res.json();
+
+  return {
+    props: {
+      response,
+    },
+  };
+}
 export default SingleMoviePage;
