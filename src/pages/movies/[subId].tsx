@@ -14,35 +14,29 @@ import { MovieType } from "types/MovieType";
 
 import classes from "./SingleMoviePage.module.css";
 
-export async function getStaticPaths() {
-  return { paths: [], fallback: true };
-}
+export async function getServerSideProps(context: any) {
+  const subID = context.params.subId;
 
-export const getStaticProps = async (context: any) => {
-  const subID = await context.params.subId;
+  if (!subID) {
+    return { notFound: true };
+  }
 
-  if (!subID) return { notFound: true };
-
-  let error = false;
-  let response = {};
   const res = await fetch(
     `https://owen-wilson-wow-api.onrender.com/wows/random?movie=${subID}`
   );
-  response = await res.json();
-
-  if (error) throw new Error();
+  const response = await res.json();
 
   return {
     props: {
       response,
     },
   };
-};
+}
 
 const SingleMoviePage = (props: { response: MovieType[] }) => {
   const [displayVideo, setDisplayVideo] = useState(false);
-  const { movies, isLoading } = useGetMovieContext();
-
+  const [isLoading, setIsLoading] = useState(false); // add new state variable
+  const { movies } = useGetMovieContext();
   const router = useRouter();
 
   if (router.isFallback) {
@@ -54,6 +48,11 @@ const SingleMoviePage = (props: { response: MovieType[] }) => {
 
   return (
     <Layout pageId={item.movie}>
+      {isLoading && (
+        <div className={classes.loading}>
+          <CircularProgress color="inherit" />
+        </div>
+      )}
       <main className={classes.main}>
         <div className={`${classes.row} ${classes.card}`}>
           <div className={classes.col}>
