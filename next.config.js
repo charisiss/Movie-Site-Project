@@ -12,6 +12,9 @@ const nextConfig = {
       },
     ],
   },
+  // Disable pre-generation of JSON files
+  // https://vercel.com/docs/concepts/deployments/vercel-json
+  target: "server",
 };
 
 module.exports = nextConfig;

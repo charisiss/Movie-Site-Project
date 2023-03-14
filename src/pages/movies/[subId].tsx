@@ -112,18 +112,17 @@ export async function getServerSideProps(context: any) {
 
   if (!subID) {
     return { notFound: true };
-  } else if (subID.slice(0, 6) != "/movies") {
-    console.log("error here");
-  } else {
-    const res = await fetch(
-      `https://owen-wilson-wow-api.onrender.com/wows/random?movie=${subID}`
-    );
-    const response = await res.json();
-    return {
-      props: {
-        response,
-      },
-    };
   }
+
+  const res = await fetch(
+    `https://owen-wilson-wow-api.onrender.com/wows/random?movie=${subID}`
+  );
+  const response = await res.json();
+
+  return {
+    props: {
+      response,
+    },
+  };
 }
 export default SingleMoviePage;
