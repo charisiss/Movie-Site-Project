@@ -14,41 +14,41 @@ import { MovieType } from "types/MovieType";
 
 import classes from "./SingleMoviePage.module.css";
 
-export async function getServerSideProps(context: any) {
-  const subID = context.params.subId;
+// export async function getServerSideProps(context: any) {
+//   const subID = context.params.subId;
 
-  if (!subID) {
-    return { notFound: true };
-  }
+//   if (!subID) {
+//     return { notFound: true };
+//   }
 
-  const res = await fetch(
-    `https://owen-wilson-wow-api.onrender.com/wows/random?movie=${subID}`
-  );
-  const response = await res.json();
+//   const res = await fetch(
+//     `https://owen-wilson-wow-api.onrender.com/wows/random?movie=${subID}`
+//   );
+//   const response = await res.json();
 
-  return {
-    props: {
-      response,
-    },
-  };
-}
+//   return {
+//     props: {
+//       response,
+//     },
+//   };
+// }
 
 const SingleMoviePage = (props: { response: MovieType[] }) => {
-  const [displayVideo, setDisplayVideo] = useState(false);
-  const [isLoading, setIsLoading] = useState(false); // add new state variable
-  const { movies } = useGetMovieContext();
-  const router = useRouter();
+  // const [displayVideo, setDisplayVideo] = useState(false);
+  // const [isLoading, setIsLoading] = useState(false); // add new state variable
+  // const { movies } = useGetMovieContext();
+  // const router = useRouter();
 
-  if (router.isFallback) {
-    console.log("test");
-    return <CircularProgress />;
-  }
+  // if (router.isFallback) {
+  //   console.log("test");
+  //   return <CircularProgress />;
+  // }
 
-  const item = props.response[0];
+  // const item = props.response[0];
 
   return (
-    <Layout pageId={item.movie}>
-      {isLoading && (
+    <Layout pageId="sad">
+      {/* {isLoading && (
         <div className={classes.loading}>
           <CircularProgress color="inherit" />
         </div>
@@ -137,7 +137,7 @@ const SingleMoviePage = (props: { response: MovieType[] }) => {
             {<MoviesList movies={movies} size={6} sort={false} />}
           </Grid>
         </Grid>
-      </main>
+      </main> */}
     </Layout>
   );
 };
