@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import PlayArrow from "@mui/icons-material/PlayArrow";
@@ -35,27 +35,24 @@ export async function getServerSideProps(context: any) {
 
 const SingleMoviePage = (props: { response: MovieType[] }) => {
   const [displayVideo, setDisplayVideo] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
-  const { movies } = useGetMovieContext();
+  const { movies, isLoading } = useGetMovieContext();
+
   const router = useRouter();
 
-  useEffect(() => {
-    setIsLoading(true);
-    return () => setIsLoading(false);
-  }, []);
+  if (router.isFallback) {
+    console.log("test");
+    return <CircularProgress />;
+  }
 
   const item = props.response[0];
 
   return (
-    <Layout pageId={"Best Movies"}>
-      <div className={isLoading ? classes.loading : undefined}>
-        <CircularProgress color="inherit" />
-      </div>
+    <Layout pageId={item.movie}>
       <main className={classes.main}>
         <div className={`${classes.row} ${classes.card}`}>
           <div className={classes.col}>
             <Image
-              src={item?.poster}
+              src={`${item?.poster}`}
               height={1400}
               width={900}
               alt="movieImage"
