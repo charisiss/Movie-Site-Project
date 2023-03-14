@@ -42,18 +42,7 @@ const SingleMoviePage = (props: { response: MovieType[] }) => {
 
           <div className={`${classes.descCol} ${classes.colPad}`}>
             <h1>{item?.movie}</h1>
-            <p>
-              Lorem Ipsum is simply dummy text of the printing and typesetting
-              industry. Lorem Ipsum has been the industrys standard dummy text
-              ever since the 1500s, when an unknown printer took a galley of
-              type and scrambled it to make a type specimen book. It has
-              survived not only five centuries, but also the leap into
-              electronic typesetting, remaining essentially unchanged. It was
-              popularised in the 1960s with the release of Letraset sheets
-              containing Lorem Ipsum passages, and more recently with desktop
-              publishing software like Aldus PageMaker including versions of
-              Lorem Ipsum.
-            </p>
+            <p>Lorem Ipsum</p>
 
             <Rating name="simple-controlled" value={3} readOnly />
 
@@ -123,17 +112,18 @@ export async function getServerSideProps(context: any) {
 
   if (!subID) {
     return { notFound: true };
+  } else if (subID.slice(0, 6) != "/movies") {
+    console.log("error here");
+  } else {
+    const res = await fetch(
+      `https://owen-wilson-wow-api.onrender.com/wows/random?movie=${subID}`
+    );
+    const response = await res.json();
+    return {
+      props: {
+        response,
+      },
+    };
   }
-
-  const res = await fetch(
-    `https://owen-wilson-wow-api.onrender.com/wows/random?movie=${subID}`
-  );
-  const response = await res.json();
-
-  return {
-    props: {
-      response,
-    },
-  };
 }
 export default SingleMoviePage;
