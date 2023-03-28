@@ -1,6 +1,6 @@
 import React from "react";
 import type { NextPage } from "next";
-import { Facebook, Pinterest, Twitter, LinkedIn } from "@mui/icons-material";
+import { GitHub, Twitter, LinkedIn } from "@mui/icons-material";
 import { CircularProgress } from "@mui/material";
 
 import Layout from "components/Layout/BaseLayout";
@@ -10,6 +10,7 @@ import Divider from "components/Divider/Divider";
 import { useGetMovieContext } from "store/MoviesContext";
 
 import classes from "./Home.module.css";
+import Link from "next/link";
 
 const Home: NextPage = () => {
   const { movies, isLoading } = useGetMovieContext();
@@ -31,10 +32,32 @@ const Home: NextPage = () => {
               in purpose to learn about react apps
             </p>
             <div>
-              <Facebook style={{ color: "#1877F2", cursor: "pointer" }} />
-              <Twitter style={{ color: "#1DA1F2", cursor: "pointer" }} />
-              <LinkedIn style={{ color: "#0A66C2", cursor: "pointer" }} />
-              <Pinterest style={{ color: "#BD081C", cursor: "pointer" }} />
+              <Link href={"https://twitter.com/CharisisSam"} target="_blank">
+                <Twitter
+                  style={{
+                    color: "#1DA1F2",
+                    cursor: "pointer",
+                    paddingRight: 1,
+                  }}
+                />
+              </Link>
+              <Link
+                href={"https://www.linkedin.com/in/charisiss/"}
+                target="_blank"
+              >
+                <LinkedIn
+                  style={{
+                    color: "#0A66C2",
+                    cursor: "pointer",
+                    paddingRight: 1,
+                  }}
+                />
+              </Link>
+              <Link href={"https://github.com/charisiss"} target="_blank">
+                <GitHub
+                  style={{ color: "black", cursor: "pointer", paddingRight: 1 }}
+                />
+              </Link>
             </div>
           </div>
 

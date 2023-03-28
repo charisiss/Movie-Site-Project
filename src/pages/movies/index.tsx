@@ -1,5 +1,6 @@
-import { Facebook, Pinterest, Twitter, LinkedIn } from "@mui/icons-material";
+import { Twitter, LinkedIn, GitHub } from "@mui/icons-material";
 import { CircularProgress } from "@mui/material";
+import Link from "next/link";
 
 import MoviesList from "components/MoviesList/MoviesList";
 import Layout from "components/Layout/BaseLayout";
@@ -21,10 +22,24 @@ const MoviesPage = () => {
             in purpose to learn about react apps
           </p>
           <div>
-            <Facebook style={{ color: "#1877F2", cursor: "pointer" }} />
-            <Twitter style={{ color: "#1DA1F2", cursor: "pointer" }} />
-            <LinkedIn style={{ color: "#0A66C2", cursor: "pointer" }} />
-            <Pinterest style={{ color: "#BD081C", cursor: "pointer" }} />
+            <Link href={"https://twitter.com/CharisisSam"} target="_blank">
+              <Twitter
+                style={{ color: "#1DA1F2", cursor: "pointer", paddingRight: 1 }}
+              />
+            </Link>
+            <Link
+              href={"https://www.linkedin.com/in/charisiss/"}
+              target="_blank"
+            >
+              <LinkedIn
+                style={{ color: "#0A66C2", cursor: "pointer", paddingRight: 1 }}
+              />
+            </Link>
+            <Link href={"https://github.com/charisiss"} target="_blank">
+              <GitHub
+                style={{ color: "black", cursor: "pointer", paddingRight: 1 }}
+              />
+            </Link>
           </div>
         </div>
 

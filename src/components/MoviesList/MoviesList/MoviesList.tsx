@@ -22,7 +22,7 @@ const MoviesList: React.FC<moviesType> = (props) => {
 
   const HandleSort = (type: string) => {
     if (type === "pop") {
-      console.log(movies);
+      // console.log(movies);
       setMovies(
         movies!.sort(function () {
           return 0.5 - Math.random();
@@ -53,7 +53,7 @@ const MoviesList: React.FC<moviesType> = (props) => {
               Sort ASC
             </Button>
           </Grid>
-          <Grid item>
+          {/* <Grid item>
             <Button
               variant="contained"
               className={classes.btn}
@@ -62,7 +62,7 @@ const MoviesList: React.FC<moviesType> = (props) => {
             >
               Popular
             </Button>
-          </Grid>
+          </Grid> */}
         </Grid>
       )}
 
@@ -74,18 +74,28 @@ const MoviesList: React.FC<moviesType> = (props) => {
         justifyContent="center"
       >
         {movies &&
-          movies.map((list, index) => {
-            if (index >= props.size) return;
-            return (
-              <Grid item key={Math.random() * 1}>
-                <MovieCard
-                  data-testid="movie-card"
-                  movie={list}
-                  key={Math.random() * 1}
-                />
-              </Grid>
-            );
-          })}
+          movies
+            .reduce((uniqueMovies: MovieType[], currentMovie: MovieType) => {
+              const existingMovie = uniqueMovies.find(
+                (movie: MovieType) => movie.movie === currentMovie.movie
+              );
+              if (!existingMovie) {
+                uniqueMovies.push(currentMovie);
+              }
+              return uniqueMovies;
+            }, [])
+            .map((list: MovieType, index: number) => {
+              if (index >= props.size) return;
+              return (
+                <Grid item key={Math.random() * 1}>
+                  <MovieCard
+                    data-testid="movie-card"
+                    movie={list}
+                    key={Math.random() * 1}
+                  />
+                </Grid>
+              );
+            })}
       </Grid>
     </div>
   );

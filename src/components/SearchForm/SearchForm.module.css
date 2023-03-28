@@ -8,6 +8,7 @@
   display: inline-flex;
   justify-content: space-between;
   align-items: center;
+  cursor: pointer;
 }
 
 .searchButton {
@@ -41,6 +42,7 @@
   border-color: black;
   box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.461);
   padding: 10px;
+  padding-bottom: 10px;
 }
 
 .searchResults > ul {
