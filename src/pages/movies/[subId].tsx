@@ -31,12 +31,13 @@ const SingleMoviePage = (props: { response: MovieType[] }) => {
     <Layout pageId={item.movie}>
       <main className={classes.main}>
         <div className={`${classes.row} ${classes.card}`}>
-          <div className={classes.col}>
+          <div className={`${classes.col} ${classes.image}`}>
             <Image
               src={`${item?.poster}`}
-              height={1400}
-              width={900}
+              layout="responsive"
               alt="movieImage"
+              width={200}
+              height={290}
             />
           </div>
 
@@ -108,14 +109,14 @@ const SingleMoviePage = (props: { response: MovieType[] }) => {
 };
 
 export async function getServerSideProps(context: any) {
-  const subID = context.params.subId;
+  const subId = context.params.subId;
 
-  if (!subID) {
+  if (!subId) {
     return { notFound: true };
   }
 
   const res = await fetch(
-    `https://owen-wilson-wow-api.onrender.com/wows/random?movie=${subID}`
+    `https://owen-wilson-wow-api.onrender.com/wows/random?movie=${subId}`
   );
   const response = await res.json();
 
@@ -125,4 +126,5 @@ export async function getServerSideProps(context: any) {
     },
   };
 }
+
 export default SingleMoviePage;

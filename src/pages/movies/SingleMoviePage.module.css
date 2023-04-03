@@ -40,3 +40,8 @@
 .videoCard {
   justify-content: center;
 }
+
+.image {
+  width: 15vw;
+  height: auto;
+}

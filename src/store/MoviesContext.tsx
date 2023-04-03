@@ -43,7 +43,7 @@ export const MovieContextProvider: React.FC<{ children: React.ReactNode }> = (
     const loadedMovies: MovieType[] = [];
     const fetchMovies = async () => {
       const response = await fetch(
-        `https://owen-wilson-wow-api.onrender.com/wows/random?results=20`
+        `https://owen-wilson-wow-api.onrender.com/wows/random?results=40`
       )
         .then((res) => res.json())
         .then((responseData) => {
