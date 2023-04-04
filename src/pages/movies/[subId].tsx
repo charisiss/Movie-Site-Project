@@ -16,7 +16,8 @@ import classes from "./SingleMoviePage.module.css";
 
 const SingleMoviePage = (props: { response: MovieType[] }) => {
   const [displayVideo, setDisplayVideo] = useState(false);
-  const { movies, isLoading } = useGetMovieContext();
+  const movies = props.response;
+  const isLoading = false;
 
   const router = useRouter();
 
@@ -100,7 +101,7 @@ const SingleMoviePage = (props: { response: MovieType[] }) => {
                 <CircularProgress color="inherit" />
               </div>
             )}
-            {<MoviesList movies={movies} size={6} sort={false} />}
+            {<MoviesList size={4} sort={false} />}
           </Grid>
         </Grid>
       </main>

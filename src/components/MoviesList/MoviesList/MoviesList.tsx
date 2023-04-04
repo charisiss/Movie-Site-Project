@@ -7,34 +7,39 @@ import { MovieType } from "types/MovieType";
 import classes from "./MoviesList.module.css";
 
 type moviesType = {
-  movies: MovieType[];
   size: number;
   sort: boolean;
 };
 
 const MoviesList: React.FC<moviesType> = (props) => {
-  const [movies, setMovies] = useState<MovieType[]>();
+  const [movies, setMovies] = useState<MovieType[]>([]);
   const [sort, setSort] = useState<string>("asc");
 
   useEffect(() => {
-    setMovies(props.movies);
-  }, [props.movies]);
+    async function fetchMovies() {
+      const response = await fetch(
+        `https://owen-wilson-wow-api.onrender.com/wows/random?results=${props.size}`
+      );
+      const data = await response.json();
+      setMovies(data);
+    }
+    fetchMovies();
+  }, [props.size]);
 
   const HandleSort = (type: string) => {
     if (type === "pop") {
       // console.log(movies);
       setMovies(
-        movies!.sort(function () {
+        movies.sort(function () {
           return 0.5 - Math.random();
         })
       );
     } else if (type === "asc") {
       setSort("dsc");
-      setMovies(props.movies.sort((a, b) => (a.movie > b.movie ? 1 : -1)));
+      setMovies(movies.sort((a, b) => (a.movie > b.movie ? 1 : -1)));
     } else {
       setSort("asc");
-      setMovies(props.movies.sort((a, b) => (a.movie > b.movie ? 1 : -1)));
-      setMovies(props.movies.reverse());
+      setMovies(movies.sort((a, b) => (a.movie > b.movie ? 1 : -1)).reverse());
     }
   };
 

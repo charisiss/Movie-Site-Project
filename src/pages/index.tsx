@@ -73,7 +73,7 @@ const Home: NextPage = () => {
               </div>
             )}
 
-            <MoviesList movies={movies} size={20} sort={true} />
+            <MoviesList size={20} sort={true} />
           </div>
         </>
       </Layout>

@@ -3,18 +3,16 @@ const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
   images: {
+    domains: ["images.ctfassets.net"],
     remotePatterns: [
       {
         protocol: "https",
         hostname: "images.ctfassets.net",
-        port: "",
+        port: "443",
         pathname: "/bs8ntwkklfua/**",
       },
     ],
   },
-  // Disable pre-generation of JSON files
-  // https://vercel.com/docs/concepts/deployments/vercel-json
-  target: "server",
 };
 
 module.exports = nextConfig;
