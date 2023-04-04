@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Search, ArrowForward } from "@mui/icons-material";
@@ -8,10 +8,23 @@ import { MovieType } from "types/MovieType";
 
 import classes from "./SearchForm.module.css";
 
-const SearchForm: React.FC<{ movies: MovieType[] }> = ({ movies }) => {
+const SearchForm: React.FC = () => {
   const [moduleIsVisible, setModuleIsVisible] = useState<string>("none");
   const [inputText, setInputText] = useState<string>();
   const [searchResults, setsearchResults] = useState<MovieType[]>([]);
+  const [movies, setMovies] = useState<MovieType[]>([]);
+
+  useEffect(() => {
+    async function fetchMovies() {
+      const res = await fetch(
+        "https://owen-wilson-wow-api.onrender.com/wows/random?results=10"
+      );
+      const data = await res.json();
+      setMovies(data);
+      console.log("data: ", data);
+    }
+    fetchMovies();
+  }, []);
 
   const focusHandler = () => {
     setModuleIsVisible("block");
@@ -26,14 +39,14 @@ const SearchForm: React.FC<{ movies: MovieType[] }> = ({ movies }) => {
   };
 
   const changeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-    event.preventDefault();
-    setInputText(event.target.value);
+    const text = event.target.value;
+    setInputText(text);
     setsearchResults([]);
-    if (inputText && inputText.length > 0) {
+
+    if (text && text.length > 0) {
       movies.filter((movie) => {
-        const testMovie = movie.movie
-          .toLowerCase()
-          .match(inputText.toLowerCase());
+        const testMovie = movie.movie?.toLowerCase()?.match(text.toLowerCase());
+        console.log("testMovie: ", movie);
         if (!testMovie) return;
         setsearchResults((oldArray: MovieType[]) => [...oldArray, movie]);
       });
@@ -77,10 +90,11 @@ const SearchForm: React.FC<{ movies: MovieType[] }> = ({ movies }) => {
                         src={`${result.poster}`}
                         height={100}
                         width={60}
-                        className={classes.img}
                         alt="searchImage"
                       />
-                      {result.movie}({result.year})
+                      <p className={classes.txt}>
+                        {result.movie}({result.year})
+                      </p>
                     </div>
                   </Link>
                 </li>

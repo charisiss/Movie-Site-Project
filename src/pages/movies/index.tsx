@@ -4,13 +4,10 @@ import Link from "next/link";
 
 import MoviesList from "components/MoviesList/MoviesList";
 import Layout from "components/Layout/BaseLayout";
-import MovieContext, { useGetMovieContext } from "store/MoviesContext";
 
 import classes from "./MoviesPage.module.css";
 
 const MoviesPage = () => {
-  const { movies, isLoading } = useGetMovieContext();
-
   return (
     <Layout pageId={"Movies"}>
       <div className={classes.main}>
@@ -43,13 +40,13 @@ const MoviesPage = () => {
           </div>
         </div>
 
-        {isLoading && (
+        {/* {isLoading && (
           <div className={classes.loading}>
             <CircularProgress color="inherit" />
           </div>
-        )}
+        )} */}
 
-        {<MoviesList movies={movies} size={20} sort={true} />}
+        {<MoviesList size={20} sort={true} />}
       </div>
     </Layout>
   );

@@ -9,7 +9,6 @@ import Divider from "components/Divider/Divider";
 import MoviesList from "components/MoviesList/MoviesList";
 import CommentsList from "components/Comments/CommentsList";
 import { CommentContextProvider } from "store/CommentsContext";
-import { useGetMovieContext } from "store/MoviesContext";
 import { MovieType } from "types/MovieType";
 
 import classes from "./SingleMoviePage.module.css";

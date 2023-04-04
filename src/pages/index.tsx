@@ -7,21 +7,18 @@ import Layout from "components/Layout/BaseLayout";
 import SearchForm from "components/SearchForm/SearchForm";
 import MoviesList from "components/MoviesList/MoviesList/MoviesList";
 import Divider from "components/Divider/Divider";
-import { useGetMovieContext } from "../store/MoviesContext";
 
 import classes from "./Home.module.css";
 import Link from "next/link";
 
 const Home: NextPage = () => {
-  const { movies, isLoading } = useGetMovieContext();
-
   return (
     <>
       <Layout pageId="Movies">
         <>
           <div className={classes.pageTitleContainer}>
             <h1>Find Movies, TV shows and more</h1>
-            <SearchForm movies={movies} />
+            <SearchForm />
           </div>
 
           <div className={classes.textBox}>
@@ -67,11 +64,11 @@ const Home: NextPage = () => {
             </div>
 
             <Divider size="15" title="Recomended" />
-            {isLoading && (
+            {/* {isLoading && (
               <div className={classes.loading}>
                 <CircularProgress color="inherit" />
               </div>
-            )}
+            )} */}
 
             <MoviesList size={20} sort={true} />
           </div>
