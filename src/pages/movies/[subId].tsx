@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import Image from "next/image";
 import PlayArrow from "@mui/icons-material/PlayArrow";
 import { Button, CircularProgress, Grid, Rating } from "@mui/material";
+import NodeCache from "node-cache";
 
 import Layout from "components/Layout/BaseLayout";
 import Divider from "components/Divider/Divider";
@@ -13,6 +14,8 @@ import { MovieType } from "types/MovieType";
 
 import classes from "./SingleMoviePage.module.css";
 
+const cache = new NodeCache();
+
 const SingleMoviePage = (props: { response: MovieType[] }) => {
   const [displayVideo, setDisplayVideo] = useState(false);
   const movies = props.response;
@@ -21,7 +24,6 @@ const SingleMoviePage = (props: { response: MovieType[] }) => {
   const router = useRouter();
 
   if (router.isFallback) {
-    console.log("test");
     return <CircularProgress />;
   }
 
@@ -95,6 +97,7 @@ const SingleMoviePage = (props: { response: MovieType[] }) => {
           </Grid>
           <Grid item xs>
             <Divider size="10" title="You may also like"></Divider>
+
             {isLoading && (
               <div className={classes.loading}>
                 <CircularProgress color="inherit" />
@@ -109,22 +112,34 @@ const SingleMoviePage = (props: { response: MovieType[] }) => {
 };
 
 export async function getServerSideProps(context: any) {
-  const subId = context.params.subId;
+  try {
+    const subId = context.params.subId;
 
-  if (!subId) {
-    return { notFound: true };
+    if (!subId) {
+      return { notFound: true };
+    }
+
+    const res = await fetch(
+      `https://owen-wilson-wow-api.onrender.com/wows/random?movie=${subId}`
+    );
+
+    if (!res.ok) {
+      return { notFound: true };
+    }
+
+    const response = await res.json();
+
+    return {
+      props: {
+        response,
+      },
+    };
+  } catch (error) {
+    console.error(error);
+    return {
+      props: {},
+    };
   }
-
-  const res = await fetch(
-    `https://owen-wilson-wow-api.onrender.com/wows/random?movie=${subId}`
-  );
-  const response = await res.json();
-
-  return {
-    props: {
-      response,
-    },
-  };
 }
 
 export default SingleMoviePage;
