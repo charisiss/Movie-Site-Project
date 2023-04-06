@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import PlayArrow from "@mui/icons-material/PlayArrow";
@@ -16,18 +16,75 @@ import classes from "./SingleMoviePage.module.css";
 
 const cache = new NodeCache();
 
-const SingleMoviePage = (props: { response: MovieType[] }) => {
+const SingleMoviePage = () => {
   const [displayVideo, setDisplayVideo] = useState(false);
-  const movies = props.response;
-  const isLoading = false;
+  const [movies, setMovies] = useState<MovieType[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isMovieLoaded, setIsMovieLoaded] = useState(false); // state variable to track if movie is loaded
 
   const router = useRouter();
+  const { subId } = router.query;
 
-  if (router.isFallback) {
-    return <CircularProgress />;
+  useEffect(() => {
+    const fetchMovies = async () => {
+      try {
+        const cachedMovies = cache.get(subId as string);
+        if (cachedMovies) {
+          setMovies(cachedMovies as MovieType[]); // Type assertion
+          setIsLoading(false);
+          setIsMovieLoaded(true); // set isMovieLoaded to true when the movie details are loaded
+        } else {
+          const res = await fetch(
+            `https://owen-wilson-wow-api.onrender.com/wows/random?movie=${subId}`
+          );
+
+          if (!res.ok) {
+            setIsLoading(false);
+            return;
+          }
+
+          const response = await res.json();
+
+          if (Array.isArray(response)) {
+            cache.set(subId as string, response, 600); // Cache the response for 10 minutes
+            setMovies(response);
+            setIsLoading(false);
+            setIsMovieLoaded(true); // set isMovieLoaded to true when the movie details are loaded
+          } else {
+            console.error("Response is not an array of MovieType");
+            setIsLoading(false);
+          }
+        }
+      } catch (error) {
+        console.error(error);
+        setIsLoading(false);
+      }
+    };
+
+    if (subId) {
+      fetchMovies();
+    }
+  }, [subId]);
+
+  // render the skeleton loading until the movie details are loaded
+  if (isLoading || !isMovieLoaded) {
+    return (
+      <div className={classes.skeletonLoading}>
+        <div className={classes.skeletonImage}></div>
+        <div className={classes.skeletonDetails}>
+          <div className={classes.skeletonTitle}></div>
+          <div className={classes.skeletonRating}></div>
+          <div className={classes.skeletonDesc}></div>
+        </div>
+      </div>
+    );
   }
 
-  const item = props.response[0];
+  if (!movies.length) {
+    return <div>Movie not found</div>;
+  }
+
+  const item = movies[0];
 
   return (
     <Layout pageId={item.movie}>
@@ -110,36 +167,5 @@ const SingleMoviePage = (props: { response: MovieType[] }) => {
     </Layout>
   );
 };
-
-export async function getServerSideProps(context: any) {
-  try {
-    const subId = context.params.subId;
-
-    if (!subId) {
-      return { notFound: true };
-    }
-
-    const res = await fetch(
-      `https://owen-wilson-wow-api.onrender.com/wows/random?movie=${subId}`
-    );
-
-    if (!res.ok) {
-      return { notFound: true };
-    }
-
-    const response = await res.json();
-
-    return {
-      props: {
-        response,
-      },
-    };
-  } catch (error) {
-    console.error(error);
-    return {
-      props: {},
-    };
-  }
-}
 
 export default SingleMoviePage;
